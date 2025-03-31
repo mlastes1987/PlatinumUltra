@@ -25,7 +25,7 @@ _0039:
     Call _0119
     GoToIfEq 0x800C, -2, _00D8
     GoToIfEq 0x800C, 0x4001, _00D8
-    ScrCmd_2A6 0x800C, 0x8000, 0x8001
+    GetGameCornerPrizeData 0x800C, 0x8000, 0x8001
     CallIfLt 0x8000, 0x148, _0100
     CallIfGe 0x8000, 0x148, _010A
     ShowYesNoMenu 0x800C
@@ -81,7 +81,7 @@ _0119:
     End
 
 _0135:
-    ScrCmd_2A6 0x8008, 0x8000, 0x8001
+    GetGameCornerPrizeData 0x8008, 0x8000, 0x8001
     BufferItemName 0, 0x8000
     ScrCmd_280 1, 0x8001, 1, 5
     ScrCmd_046 168, 0xFF, 0x8008
@@ -119,16 +119,16 @@ _01CB:
     FadeScreen 6, 1, 0, 0
     WaitFadeScreen
     ScrCmd_191
-    ScrCmd_193 0x8000
+    GetSelectedPartySlot 0x8000
     ReturnToField
     FadeScreen 6, 1, 1, 0
     WaitFadeScreen
     GoToIfEq 0x8000, 0xFF, _0250
-    ScrCmd_198 0x8000, 0x8001
+    GetPartyMonSpecies 0x8000, 0x8001
     GoToIfEq 0x8001, 0, _025B
     ScrCmd_2FF 0x8000, 0x8004
     GoToIfEq 0x8004, -1, _0245
-    ScrCmd_099 0x800C, 237, 0x8000
+    CheckPartyMonHasMove 0x800C, MOVE_HIDDEN_POWER, 0x8000
     GoToIfEq 0x800C, 0, _0266
     ScrCmd_2FD 0, 0x8004
     Message 11
