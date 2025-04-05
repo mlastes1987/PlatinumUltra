@@ -1964,7 +1964,7 @@ void ov62_02233664(UnkStruct_ov62_0223359C *param0)
 
 void ov62_02233704(UnkStruct_0208C06C *param0, u32 param1)
 {
-    GameRecords *v0 = SaveData_GetGameRecordsPtr(param0->unk_830);
+    GameRecords *v0 = SaveData_GetGameRecords(param0->unk_830);
     GameRecords_IncrementTrainerScore(v0, param1);
 }
 
@@ -1972,7 +1972,7 @@ void ov62_0223371C(UnkStruct_0208C06C *param0)
 {
     int v0;
 
-    sub_0202F1F8(param0->unk_830, 119, &v0);
+    sub_0202F1F8(param0->unk_830, HEAP_ID_119, &v0);
 
     {
         UnkStruct_02030A80 *v1 = (UnkStruct_02030A80 *)(&param0->unk_8B4.unk_00->unk_00);

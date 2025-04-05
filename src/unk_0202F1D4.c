@@ -54,14 +54,14 @@ void BattleRecording_Init(BattleRecording *param0)
     param0->unk_00 = 0xffffffff;
 }
 
-void sub_0202F1F8(SaveData *param0, int param1, int *param2)
+void sub_0202F1F8(SaveData *saveData, int heapID, int *param2)
 {
     if (Unk_021C07A4 != NULL) {
         Heap_FreeToHeap(Unk_021C07A4);
         Unk_021C07A4 = NULL;
     }
 
-    Unk_021C07A4 = SaveData_BattleRecording(param0, param1, param2, 0);
+    Unk_021C07A4 = SaveData_BattleRecording(saveData, heapID, param2, 0);
     BattleRecording_Init(Unk_021C07A4);
 }
 
@@ -572,7 +572,7 @@ void sub_0202FAFC(FieldBattleDTO *param0, SaveData *saveData)
         param0->unk_194[v0] = v1->unk_00.unk_14C[v0];
     }
 
-    Options_Copy(SaveData_Options(saveData), param0->options);
+    Options_Copy(SaveData_GetOptions(saveData), param0->options);
     param0->options->frame = v1->unk_1BE8.frame;
 
     if (param0->options->frame >= 20) {
