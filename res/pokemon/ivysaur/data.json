@@ -42,7 +42,7 @@
             [ 13, "MOVE_POISON_POWDER" ],
             [ 13, "MOVE_SLEEP_POWDER" ],
             [ 15, "MOVE_TAKE_DOWN" ],
-            [ 20, "MOVE_RAZOR_LEAF" ],
+            [ 18, "MOVE_RAZOR_LEAF" ],
             [ 23, "MOVE_SWEET_SCENT" ],
             [ 28, "MOVE_GROWTH" ],
             [ 31, "MOVE_DOUBLE_EDGE" ],

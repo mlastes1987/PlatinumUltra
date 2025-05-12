@@ -35,8 +35,10 @@
         "by_level": [
             [ 1, "MOVE_TACKLE" ],
             [ 3, "MOVE_GROWL" ],
+            [ 5, "MOVE_ABSORB" ],
             [ 7, "MOVE_LEECH_SEED" ],
             [ 9, "MOVE_VINE_WHIP" ],
+            [ 12, "MOVE_MEGA_DRAIN" ],
             [ 13, "MOVE_POISON_POWDER" ],
             [ 13, "MOVE_SLEEP_POWDER" ],
             [ 15, "MOVE_TAKE_DOWN" ],

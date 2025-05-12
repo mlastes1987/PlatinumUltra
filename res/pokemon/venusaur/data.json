@@ -48,6 +48,7 @@
             [ 28, "MOVE_GROWTH" ],
             [ 31, "MOVE_DOUBLE_EDGE" ],
             [ 32, "MOVE_PETAL_DANCE" ],
+            [ 36, "MOVE_GIGA_DRAIN" ],
             [ 39, "MOVE_WORRY_SEED" ],
             [ 45, "MOVE_SYNTHESIS" ],
             [ 53, "MOVE_SOLAR_BEAM" ]

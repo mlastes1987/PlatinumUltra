@@ -46,6 +46,7 @@
             [ 28, "MOVE_BULK_UP" ],
             [ 32, "MOVE_QUICK_ATTACK" ],
             [ 36, "MOVE_BLAZE_KICK" ],
+            [ 37, "MOVE_FLAMETHROWER" ],
             [ 42, "MOVE_SLASH" ],
             [ 49, "MOVE_BRAVE_BIRD" ],
             [ 59, "MOVE_SKY_UPPERCUT" ],
