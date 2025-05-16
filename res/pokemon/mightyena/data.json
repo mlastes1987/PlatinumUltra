@@ -39,6 +39,7 @@
             [ 1, "MOVE_BITE" ],
             [ 5, "MOVE_HOWL" ],
             [ 9, "MOVE_SAND_ATTACK" ],
+            [ 12, "MOVE_ICE_FANG" ],
             [ 13, "MOVE_BITE" ],
             [ 17, "MOVE_ODOR_SLEUTH" ],
             [ 20, "MOVE_FIRE_FANG" ],
