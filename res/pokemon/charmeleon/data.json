@@ -41,6 +41,7 @@
             [ 12, "MOVE_METAL_CLAW" ],
             [ 17, "MOVE_DRAGON_RAGE" ],
             [ 21, "MOVE_SCARY_FACE" ],
+            [ 22, "MOVE_IRON_TAIL" ],
             [ 28, "MOVE_FIRE_FANG" ],
             [ 32, "MOVE_SLASH" ],
             [ 39, "MOVE_FLAMETHROWER" ],
