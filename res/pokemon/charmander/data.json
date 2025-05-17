@@ -37,6 +37,7 @@
             [ 1, "MOVE_GROWL" ],
             [ 7, "MOVE_EMBER" ],
             [ 10, "MOVE_SMOKE_SCREEN" ],
+            [ 14, "MOVE_METAL_CLAW" ],
             [ 16, "MOVE_DRAGON_RAGE" ],
             [ 19, "MOVE_SCARY_FACE" ],
             [ 25, "MOVE_FIRE_FANG" ],
