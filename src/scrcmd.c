@@ -3477,7 +3477,7 @@ static BOOL ScrCmd_2D0(ScriptContext *ctx)
     u16 *v3 = ScriptContext_GetVarPointer(ctx);
     u16 *v4 = ScriptContext_GetVarPointer(ctx);
     void **v2 = FieldSystem_GetScriptMemberPtr(ctx->fieldSystem, SCRIPT_MANAGER_PARTY_MANAGEMENT_DATA);
-    PartyManagementData *v5 = *v2;
+    PartyManagementData *partyMan = *v2;
 
     GF_ASSERT(*v2 != 0);
 
@@ -3486,10 +3486,10 @@ static BOOL ScrCmd_2D0(ScriptContext *ctx)
     if (v1 == MAX_PARTY_SIZE + 1) {
         *v3 = 0xff;
     } else if (v1 == MAX_PARTY_SIZE) {
-        u16 v0 = v5->unk_2C[0];
+        u16 v0 = partyMan->unk_2C[0];
         *v3 = v0;
         *v3 -= 1;
-        v0 = v5->unk_2C[1];
+        v0 = partyMan->unk_2C[1];
         *v4 = v0;
 
         if (*v4 > 0) {
@@ -3509,7 +3509,7 @@ static BOOL ScrCmd_2D4(ScriptContext *ctx)
     u16 *v4 = ScriptContext_GetVarPointer(ctx);
     u16 *v5 = ScriptContext_GetVarPointer(ctx);
     void **v2 = FieldSystem_GetScriptMemberPtr(ctx->fieldSystem, SCRIPT_MANAGER_PARTY_MANAGEMENT_DATA);
-    PartyManagementData *v6 = *v2;
+    PartyManagementData *partyMan = *v2;
 
     GF_ASSERT(*v2 != 0);
 
@@ -3518,13 +3518,13 @@ static BOOL ScrCmd_2D4(ScriptContext *ctx)
     if (v1 == MAX_PARTY_SIZE + 1) {
         *v3 = 0xff;
     } else if (v1 == MAX_PARTY_SIZE) {
-        *v3 = v6->unk_2C[0];
+        *v3 = partyMan->unk_2C[0];
         *v3 -= 1;
 
-        *v4 = v6->unk_2C[1];
+        *v4 = partyMan->unk_2C[1];
         *v4 -= 1;
 
-        *v5 = v6->unk_2C[2];
+        *v5 = partyMan->unk_2C[2];
 
         if (*v5 > 0) {
             *v5 -= 1;
@@ -3543,7 +3543,7 @@ static BOOL ScrCmd_2DB(ScriptContext *ctx)
     u16 *v4 = ScriptContext_GetVarPointer(ctx);
     u16 *v5 = ScriptContext_GetVarPointer(ctx);
     void **v2 = FieldSystem_GetScriptMemberPtr(ctx->fieldSystem, SCRIPT_MANAGER_PARTY_MANAGEMENT_DATA);
-    PartyManagementData *v6 = *v2;
+    PartyManagementData *partyMan = *v2;
 
     GF_ASSERT(*v2 != 0);
 
@@ -3552,13 +3552,13 @@ static BOOL ScrCmd_2DB(ScriptContext *ctx)
     if (v1 == MAX_PARTY_SIZE + 1) {
         *v3 = 0xff;
     } else if (v1 == MAX_PARTY_SIZE) {
-        *v3 = v6->unk_2C[0];
+        *v3 = partyMan->unk_2C[0];
         *v3 -= 1;
 
-        *v4 = v6->unk_2C[1];
+        *v4 = partyMan->unk_2C[1];
         *v4 -= 1;
 
-        *v5 = v6->unk_2C[2];
+        *v5 = partyMan->unk_2C[2];
 
         if (*v5 > 0) {
             *v5 -= 1;
@@ -4106,7 +4106,7 @@ static BOOL ScrCmd_1D8(ScriptContext *ctx)
         return FALSE;
     }
 
-    if (Poffin_GetNumberOfFilledSlots(SaveData_GetPoffinCase(ctx->fieldSystem->saveData)) >= MAX_POFFINS) {
+    if (PoffinCase_CountFilledSlots(SaveData_GetPoffinCase(ctx->fieldSystem->saveData)) >= MAX_POFFINS) {
         *v0 = 2;
         return FALSE;
     }
@@ -5147,8 +5147,8 @@ static BOOL ScrCmd_2BA(ScriptContext *ctx)
 
     if (*v2 != 0) {
         void **v1 = FieldSystem_GetScriptMemberPtr(ctx->fieldSystem, SCRIPT_MANAGER_PARTY_MANAGEMENT_DATA);
-        PartyManagementData *v0 = *v1;
-        Heap_FreeToHeap(v0);
+        PartyManagementData *partyMan = *v1;
+        Heap_FreeToHeap(partyMan);
     }
 
     return FALSE;
@@ -7063,14 +7063,14 @@ static BOOL ScrCmd_289(ScriptContext *ctx)
     }
 
     u8 v4 = ScriptContext_GetVar(ctx);
-    Poffin *v0 = Poffin_New(HEAP_ID_FIELD);
-    int v1 = sub_0202A9E4(v0, v3, v4, FALSE);
-    PoffinCase *v2 = SaveData_GetPoffinCase(ctx->fieldSystem->saveData);
-    u16 v5 = Poffin_AddToCase(v2, v0);
+    Poffin *poffin = Poffin_New(HEAP_ID_FIELD);
+    int v1 = sub_0202A9E4(poffin, v3, v4, FALSE);
+    PoffinCase *poffinCase = SaveData_GetPoffinCase(ctx->fieldSystem->saveData);
+    u16 slotId = PoffinCase_AddPoffin(poffinCase, poffin);
 
-    Heap_FreeToHeap(v0);
+    Heap_FreeToHeap(poffin);
 
-    if (v5 == POFFIN_NONE) {
+    if (slotId == POFFIN_NONE) {
         *v6 = 0xffff;
     } else {
         *v6 = v1;
@@ -7084,7 +7084,7 @@ static BOOL ScrCmd_28A(ScriptContext *ctx)
     u16 *v1 = ScriptContext_GetVarPointer(ctx);
     PoffinCase *poffinCase = SaveData_GetPoffinCase(ctx->fieldSystem->saveData);
 
-    if (Poffin_GetEmptyCaseSlot(poffinCase) == POFFIN_NONE) {
+    if (PoffinCase_GetEmptySlot(poffinCase) == POFFIN_NONE) {
         *v1 = 0;
     } else {
         *v1 = 1;
@@ -7097,7 +7097,7 @@ static BOOL ScrCmd_307(ScriptContext *ctx)
 {
     u16 *v1 = ScriptContext_GetVarPointer(ctx);
     PoffinCase *poffinCase = SaveData_GetPoffinCase(ctx->fieldSystem->saveData);
-    *v1 = Poffin_GetNumberOfEmptySlots(poffinCase);
+    *v1 = PoffinCase_CountEmptySlots(poffinCase);
 
     return FALSE;
 }
