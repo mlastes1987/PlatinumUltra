@@ -3,12 +3,12 @@
 #include <nitro.h>
 #include <string.h>
 
+#include "applications/poketch/ov25_02255DBC.h"
+#include "applications/poketch/poketch_animation.h"
+#include "applications/poketch/poketch_graphics.h"
+#include "applications/poketch/poketch_task.h"
 #include "overlay047/struct_ov47_02256634_1.h"
 #include "overlay047/struct_ov47_02256634_decl.h"
-#include "poketch/ov25_02255DBC.h"
-#include "poketch/poketch_animation.h"
-#include "poketch/poketch_graphics.h"
-#include "poketch/poketch_task.h"
 
 #include "bg_window.h"
 #include "graphics.h"
@@ -211,8 +211,8 @@ static void ov47_022568BC(SysTask *param0, void *param1)
     v2 = PoketchTask_GetTaskData(param1);
 
     Bg_InitFromTemplate(v2->unk_04, 6, &v0, 0);
-    Graphics_LoadTilesToBgLayer(12, 117, v2->unk_04, 6, 0, 0, 1, HEAP_ID_POKETCH_APP);
-    Graphics_LoadTilemapToBgLayer(12, 115, v2->unk_04, 6, 0, 0, 1, HEAP_ID_POKETCH_APP);
+    Graphics_LoadTilesToBgLayer(NARC_INDEX_GRAPHIC__POKETCH, 117, v2->unk_04, 6, 0, 0, 1, HEAP_ID_POKETCH_APP);
+    Graphics_LoadTilemapToBgLayer(NARC_INDEX_GRAPHIC__POKETCH, 115, v2->unk_04, 6, 0, 0, 1, HEAP_ID_POKETCH_APP);
 
     PoketchGraphics_LoadActivePalette(0, 0);
 

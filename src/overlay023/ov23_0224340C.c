@@ -5,8 +5,8 @@
 
 #include "generated/trainer_score_events.h"
 
-#include "struct_decls/struct_0202855C_decl.h"
-#include "struct_decls/struct_020298B0_decl.h"
+#include "struct_defs/underground_data.h"
+#include "struct_defs/underground_record.h"
 
 #include "field/field_system.h"
 #include "overlay005/ov5_021EAFA4.h"
@@ -1542,13 +1542,13 @@ BOOL ov23_02244470(int param0)
 void ov23_0224448C(int param0, int param1, void *param2, void *param3)
 {
     UnkStruct_ov23_02244140 *v0 = (UnkStruct_ov23_02244140 *)param2;
-    SecretBaseRecord *v1;
+    UndergroundRecord *v1;
 
     if (!Unk_ov23_02257764) {
         return;
     }
 
-    v1 = SaveData_SecretBaseRecord(FieldSystem_GetSaveData(Unk_ov23_02257764->fieldSystem));
+    v1 = SaveData_UndergroundRecord(FieldSystem_GetSaveData(Unk_ov23_02257764->fieldSystem));
 
     Sound_PlayEffect(SEQ_SE_DP_UG_007);
     MI_CpuCopy8(v0, &Unk_ov23_02257764->unk_B28[v0->unk_07_0], sizeof(UnkStruct_ov23_02244140));
@@ -1585,7 +1585,7 @@ void ov23_0224448C(int param0, int param1, void *param2, void *param3)
 
     if (CommSys_CurNetId() == v0->unk_06) {
         if (v0->unk_06 != v0->unk_07_0) {
-            sub_020296D4(v1);
+            UndergroundRecord_IncrementNumTrapsHit(v1);
         }
 
         {
@@ -2341,23 +2341,23 @@ static void ov23_022451C8(SysTask *param0, void *param1)
         break;
     case 1:
         BrightnessController_StartTransition(1, 10, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
-        Graphics_LoadTilesToBgLayer(50, 9, v0->unk_10, 2, 0, 8 * 6 * 6, 0, HEAP_ID_FIELD);
+        Graphics_LoadTilesToBgLayer(NARC_INDEX_DATA__UG_TRAP, 9, v0->unk_10, 2, 0, 8 * 6 * 6, 0, HEAP_ID_FIELD);
         v0->unk_00++;
         break;
     case 2:
-        Graphics_LoadPalette(50, 10, 0, 0, 32, HEAP_ID_FIELD);
+        Graphics_LoadPalette(NARC_INDEX_DATA__UG_TRAP, 10, 0, 0, 32, HEAP_ID_FIELD);
         v0->unk_00++;
         break;
     case 3:
         BrightnessController_StartTransition(1, 0, 10, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
 
         if (Unk_ov23_02257764->unk_B9F == 19) {
-            Graphics_LoadTilemapToBgLayer(50, 8, v0->unk_10, 2, 0, 32 * 24 * 2, 0, HEAP_ID_FIELD);
+            Graphics_LoadTilemapToBgLayer(NARC_INDEX_DATA__UG_TRAP, 8, v0->unk_10, 2, 0, 32 * 24 * 2, 0, HEAP_ID_FIELD);
         } else {
             u16 v2[] = { 11, 12, 13, 14 };
             u16 v3 = LCRNG_Next() % 4;
 
-            Graphics_LoadTilemapToBgLayer(50, v2[v3], v0->unk_10, 2, 0, 32 * 24 * 2, 0, HEAP_ID_FIELD);
+            Graphics_LoadTilemapToBgLayer(NARC_INDEX_DATA__UG_TRAP, v2[v3], v0->unk_10, 2, 0, 32 * 24 * 2, 0, HEAP_ID_FIELD);
         }
 
         Bg_SetPriority(0, 3);
@@ -2542,13 +2542,13 @@ void ov23_02245560(int param0, int param1)
 void ov23_022455B4(int param0, int param1, void *param2, void *param3)
 {
     UnkStruct_ov23_02245560 *v0 = param2;
-    SecretBaseRecord *v1 = SaveData_SecretBaseRecord(FieldSystem_GetSaveData(Unk_ov23_02257764->fieldSystem));
+    UndergroundRecord *v1 = SaveData_UndergroundRecord(FieldSystem_GetSaveData(Unk_ov23_02257764->fieldSystem));
 
     ov23_0224B024(v0->unk_01);
 
     if (v0->unk_00 == CommSys_CurNetId()) {
         sub_02029744(v1);
-        GameRecords_IncrementTrainerScore(SaveData_GetGameRecords(Unk_ov23_02257764->fieldSystem->saveData), TRAINER_SCORE_EVENT_UNK_34);
+        GameRecords_IncrementTrainerScore(SaveData_GetGameRecords(Unk_ov23_02257764->fieldSystem->saveData), TRAINER_SCORE_EVENT_UNDERGROUND_HELP_TRAPPED_PLAYER);
         sub_020594FC();
 
         ov23_02254068(ov23_0224219C(), CommInfo_TrainerInfo(v0->unk_01));

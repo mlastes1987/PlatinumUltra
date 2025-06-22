@@ -4,8 +4,8 @@
 #include <string.h>
 
 #include "struct_decls/struct_02029894_decl.h"
-#include "struct_decls/struct_020298B0_decl.h"
 #include "struct_decls/struct_02061AB4_decl.h"
+#include "struct_defs/underground_data.h"
 
 #include "field/field_system.h"
 #include "overlay005/land_data.h"
@@ -144,7 +144,7 @@ static void CommManUnderground_Init(CommManUnderground *param0, FieldSystem *fie
     sCommManUnderground->unk_128 = ov23_02253D48(630, HEAP_ID_33, fieldSystem->bgConfig, v0, 0);
 
     LoadMessageBoxGraphics(sCommManUnderground->fieldSystem->bgConfig, 3, (1024 - (18 + 12)), 10, 0, HEAP_ID_FIELD);
-    Graphics_LoadPalette(50, 52, 0, 10 * 0x20, 4 * 0x20, HEAP_ID_FIELD);
+    Graphics_LoadPalette(NARC_INDEX_DATA__UG_TRAP, 52, 0, 10 * 0x20, 4 * 0x20, HEAP_ID_FIELD);
     LoadStandardWindowGraphics(sCommManUnderground->fieldSystem->bgConfig, 3, 1024 - (18 + 12) - 9, 11, 2, HEAP_ID_FIELD);
 
     for (v1 = 0; v1 < (7 + 1); v1++) {
@@ -787,7 +787,7 @@ void ov23_02242BC0(FieldSystem *fieldSystem)
         ov23_0223E1E4(v0, fieldSystem);
 
         v0 = Heap_AllocFromHeap(HEAP_ID_COMMUNICATION, ov23_02253608());
-        ov23_02253598(v0, SaveData_SecretBaseRecord(FieldSystem_GetSaveData(fieldSystem)), FieldSystem_GetSaveData(fieldSystem));
+        ov23_02253598(v0, SaveData_UndergroundRecord(FieldSystem_GetSaveData(fieldSystem)), FieldSystem_GetSaveData(fieldSystem));
         ov23_0224F588(SaveData_GetUndergroundData(FieldSystem_GetSaveData(fieldSystem)));
     }
 }

@@ -3,11 +3,11 @@
 #include <nitro.h>
 #include <string.h>
 
+#include "applications/poketch/poketch_animation.h"
+#include "applications/poketch/poketch_graphics.h"
+#include "applications/poketch/poketch_task.h"
 #include "overlay034/struct_ov34_02256540_1.h"
 #include "overlay034/struct_ov34_02256540_decl.h"
-#include "poketch/poketch_animation.h"
-#include "poketch/poketch_graphics.h"
-#include "poketch/poketch_task.h"
 
 #include "bg_window.h"
 #include "graphics.h"
@@ -175,8 +175,8 @@ static void ov34_02256690(SysTask *param0, void *param1)
     v2 = PoketchTask_GetTaskData(param1);
 
     Bg_InitFromTemplate(v2->unk_04, 6, &v0, 0);
-    Graphics_LoadTilesToBgLayer(12, 39, v2->unk_04, 6, 0, 0, 1, HEAP_ID_POKETCH_APP);
-    Graphics_LoadTilemapToBgLayer(12, 38, v2->unk_04, 6, 0, 0, 1, HEAP_ID_POKETCH_APP);
+    Graphics_LoadTilesToBgLayer(NARC_INDEX_GRAPHIC__POKETCH, 39, v2->unk_04, 6, 0, 0, 1, HEAP_ID_POKETCH_APP);
+    Graphics_LoadTilemapToBgLayer(NARC_INDEX_GRAPHIC__POKETCH, 38, v2->unk_04, 6, 0, 0, 1, HEAP_ID_POKETCH_APP);
 
     PoketchGraphics_LoadActivePalette(0, 0);
 
