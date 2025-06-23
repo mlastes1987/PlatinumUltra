@@ -6132,7 +6132,7 @@ static BOOL ScrCmd_202(ScriptContext *ctx)
 {
     FieldOverworldState *fieldState = SaveData_GetFieldOverworldState(ctx->fieldSystem->saveData);
     VarsFlags *v3 = SaveData_GetVarsFlags(ctx->fieldSystem->saveData);
-    TVBroadcast *v4 = SaveData_GetTVBroadcast(ctx->fieldSystem->saveData);
+    TVBroadcast *broadcast = SaveData_GetTVBroadcast(ctx->fieldSystem->saveData);
     int v5 = ScriptContext_ReadByte(ctx);
 
     u16 *v0 = FieldOverworldState_GetSafariBallCount(fieldState);
@@ -6141,7 +6141,7 @@ static BOOL ScrCmd_202(ScriptContext *ctx)
     switch (v5) {
     case 0:
         SystemFlag_SetSafariGameActive(v3);
-        sub_0206D000(v4);
+        sub_0206D000(broadcast);
         *v0 = 30;
         *v1 = 0;
         break;
@@ -6431,7 +6431,7 @@ static BOOL ScrCmd_249(ScriptContext *ctx)
     FieldSystem *fieldSystem = ctx->fieldSystem;
     TrainerInfo *v1 = SaveData_GetTrainerInfo(FieldSystem_GetSaveData(ctx->fieldSystem));
     u16 *v2 = ScriptContext_GetVarPointer(ctx);
-    PCBoxes *v3 = SaveData_GetPCBoxes(fieldSystem->saveData);
+    PCBoxes *pcBoxes = SaveData_GetPCBoxes(fieldSystem->saveData);
     u16 v4 = ScriptContext_GetVar(ctx);
     u16 v5 = ScriptContext_GetVar(ctx);
     u16 v6 = ScriptContext_GetVar(ctx);
@@ -6443,10 +6443,10 @@ static BOOL ScrCmd_249(ScriptContext *ctx)
         return FALSE;
     }
 
-    if (PCBoxes_CheckHasUnlockedWallpaper(v3, v8)) {
+    if (PCBoxes_CheckHasUnlockedWallpaper(pcBoxes, v8)) {
         *v2 = 0;
     } else {
-        PCBoxes_UnlockWallpaper(v3, v8);
+        PCBoxes_UnlockWallpaper(pcBoxes, v8);
         *v2 = v8 + 1;
     }
 
