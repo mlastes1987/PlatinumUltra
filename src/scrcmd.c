@@ -691,7 +691,7 @@ static BOOL ScrCmd_2A4(ScriptContext *ctx);
 static BOOL ScrCmd_2A7(ScriptContext *ctx);
 static BOOL ScrCmd_2AA(ScriptContext *ctx);
 static BOOL ScrCmd_2AB(ScriptContext *ctx);
-static BOOL ScrCmd_2AC(ScriptContext *ctx);
+static BOOL ScrCmd_UnlockMysteryGift(ScriptContext *ctx);
 static BOOL ScrCmd_2AF(ScriptContext *ctx);
 static BOOL ScrCmd_2B0(ScriptContext *ctx);
 static BOOL ScrCmd_2B1(ScriptContext *ctx);
@@ -1453,7 +1453,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_HasCoinsFromVar,
     ScrCmd_2AA,
     ScrCmd_2AB,
-    ScrCmd_2AC,
+    ScrCmd_UnlockMysteryGift,
     ScrCmd_2AD,
     ScrCmd_IsSequencePlaying,
     ScrCmd_2AF,
@@ -2381,17 +2381,17 @@ static BOOL ScriptContext_ScrollBG3(ScriptContext *ctx)
 
     if (*distanceX != 0) {
         if (*directionX == 0) {
-            Bg_SetOffset(fieldSystem->bgConfig, 3, 1, *distanceX);
+            Bg_SetOffset(fieldSystem->bgConfig, BG_LAYER_MAIN_3, 1, *distanceX);
         } else {
-            Bg_SetOffset(fieldSystem->bgConfig, 3, 2, *distanceX);
+            Bg_SetOffset(fieldSystem->bgConfig, BG_LAYER_MAIN_3, 2, *distanceX);
         }
     }
 
     if (*distanceY != 0) {
         if (*directionY == 0) {
-            Bg_SetOffset(fieldSystem->bgConfig, 3, 4, *distanceY);
+            Bg_SetOffset(fieldSystem->bgConfig, BG_LAYER_MAIN_3, 4, *distanceY);
         } else {
-            Bg_SetOffset(fieldSystem->bgConfig, 3, 5, *distanceY);
+            Bg_SetOffset(fieldSystem->bgConfig, BG_LAYER_MAIN_3, 5, *distanceY);
         }
     }
 
@@ -3735,7 +3735,7 @@ static BOOL sub_02041CF4(ScriptContext *ctx)
         return FALSE;
     }
 
-    if (v2->unk_08 == 1) {
+    if (v2->recordBoxUseInJournal == TRUE) {
         void *journalEntryLocationEvent;
 
         journalEntryLocationEvent = JournalEntry_CreateEventUsedPCBox(HEAP_ID_FIELDMAP);
@@ -7313,12 +7313,12 @@ static BOOL ScrCmd_2AA(ScriptContext *ctx)
     return FALSE;
 }
 
-static BOOL ScrCmd_2AC(ScriptContext *ctx)
+static BOOL ScrCmd_UnlockMysteryGift(ScriptContext *ctx)
 {
     FieldSystem *fieldSystem = ctx->fieldSystem;
     SystemData *v1 = SaveData_GetSystemData(ctx->fieldSystem->saveData);
 
-    sub_02025D6C(v1, TRUE);
+    SystemData_SetMysteryGiftUnlocked(v1, TRUE);
     return FALSE;
 }
 

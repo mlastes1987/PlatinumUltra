@@ -10124,8 +10124,8 @@ static void BattleScript_GetExpTask(SysTask *task, void *inData)
         PaletteData *paletteSys = BattleSystem_PaletteSys(data->battleSys);
 
         G2_SetBG0Priority(1 + 1); // this is the background + 1; could do with a constant
-        Bg_SetPriority(1, 1);
-        Bg_SetPriority(2, 0);
+        Bg_SetPriority(BG_LAYER_MAIN_1, 1);
+        Bg_SetPriority(BG_LAYER_MAIN_2, 0);
 
         BattleSystem_SetGaugePriority(data->battleSys, 0 + 2); // gauge's default is 0
 
@@ -10213,8 +10213,8 @@ static void BattleScript_GetExpTask(SysTask *task, void *inData)
         Window_Remove(window);
 
         G2_SetBG0Priority(1);
-        Bg_SetPriority(1, 0);
-        Bg_SetPriority(2, 1);
+        Bg_SetPriority(BG_LAYER_MAIN_1, 0);
+        Bg_SetPriority(BG_LAYER_MAIN_2, 1);
 
         BattleSystem_SetGaugePriority(data->battleSys, 0);
 
@@ -10907,7 +10907,7 @@ static void BattleScript_CatchMonTask(SysTask *param0, void *param1)
                 v3 = BattleSystem_PartyPokemon(v2->battleSys, v1, v2->battleCtx->selectedPartySlot[v1]);
 
                 if (v19->unk_14 == 0) {
-                    Pokemon_SetValue(v3, MON_DATA_NICKNAME_STRBUF_AND_FLAG, v19->unk_18);
+                    Pokemon_SetValue(v3, MON_DATA_NICKNAME_STRBUF_AND_FLAG, v19->textInputStr);
                     ov16_0223F24C(v2->battleSys, (1 + 48));
                 }
 
