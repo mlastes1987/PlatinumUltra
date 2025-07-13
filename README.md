@@ -1,12 +1,17 @@
-# Pokémon Platinum
+# Platinum Ultra
 
-This is a WIP decompilation of Pokémon Platinum. For instructions on how to set up the repository, please read [`INSTALL.md`](INSTALL.md).
+![Screenshot](platinumultra-boxart.jpg)
 
-If you are interested in contributing, please read [`CONTRIBUTING.md`](/CONTRIBUTING.md).
+Based on the [**pokeplatinum**](https://github.com/pret/pokeplatinum) disassembly by pret.
 
-This repository builds the following ROMs:
+# Features Currently Implemented:
 
-* [**pokeplatinum.us.nds**](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=4997) (Rev 1): `sha1: 0862ec35b24de5c7e2dcb88c9eea0873110d755c`
-* [**pokeplatinum.us.nds**](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=3541) (Rev 0): `sha1: ce81046eda7d232513069519cb2085349896dec7`
+- **Different Starters:** Starters are now changed to Bulbasaur, Torchic and Totodile.
 
-For contacts and other pret projects, see [pret.github.io](https://pret.github.io/). In addition to the pret Discord, also see the [VoidMatrix Discord (#decomp)](https://discord.gg/prUAgd5).
+- **Moveset Changes:** Movesets are changed for the new starters and others for solo and line challenge runs.
+
+- **Pokemart/Item Changes:** Rare Candies, Master Balls and PP Max are now free and can be bought from the pokemart.
+
+- **Trade Evolutions:** Trade Evolutions (Machoke, Graveler, Haunter, Kadabra, etc.) evolve at lvl 37 and other mon's hold evolution items can be used from the bag. (i.e. King's Rock for Politoed, Upgrade for Porygon 2)
+
+Coming soon...
