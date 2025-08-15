@@ -807,116 +807,116 @@
     .short 130
     .endm
 
-    .macro ScrCmd_083 arg0, arg1, arg2
+    .macro SendGoodToPC goodID, unused, destVar
     .short 131
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \goodID
+    .short \unused
+    .short \destVar
     .endm
 
-    .macro ScrCmd_084 arg0, arg1, arg2
+    .macro Dummy084 dummy, dummy2, dummy3
     .short 132
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \dummy
+    .short \dummy2
+    .short \dummy3
     .endm
 
-    .macro ScrCmd_085 arg0, arg1, arg2
+    .macro CheckHasRoomForGoodsInPC unused, unused2, destVar
     .short 133
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \unused
+    .short \unused2
+    .short \destVar
     .endm
 
-    .macro ScrCmd_086 arg0, arg1, arg2
+    .macro Dummy086 dummy, dummy2, dummy3
     .short 134
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \dummy
+    .short \dummy2
+    .short \dummy3
     .endm
 
-    .macro ScrCmd_087 arg0, arg1, arg2
+    .macro GiveTrap trapID, unused, destVar
     .short 135
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \trapID
+    .short \unused
+    .short \destVar
     .endm
 
-    .macro ScrCmd_088 arg0, arg1, arg2
+    .macro Dummy088 dummy, dummy2, dummy3
     .short 136
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \dummy
+    .short \dummy2
+    .short \dummy3
     .endm
 
-    .macro ScrCmd_089 arg0, arg1, arg2
+    .macro Dummy089 dummy, dummy2, dummy3
     .short 137
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \dummy
+    .short \dummy2
+    .short \dummy3
     .endm
 
-    .macro ScrCmd_08A arg0, arg1, arg2
+    .macro Dummy08A dummy, dummy2, dummy3
     .short 138
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \dummy
+    .short \dummy2
+    .short \dummy3
     .endm
 
-    .macro ScrCmd_08B arg0, arg1, arg2
+    .macro Dummy08B dummy, dummy2, dummy3
     .short 139
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \dummy
+    .short \dummy2
+    .short \dummy3
     .endm
 
-    .macro ScrCmd_08C arg0, arg1, arg2
+    .macro Dummy08C dummy, dummy2, dummy3
     .short 140
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \dummy
+    .short \dummy2
+    .short \dummy3
     .endm
 
-    .macro ScrCmd_08D arg0, arg1, arg2
+    .macro Dummy08D dummy, dummy2, dummy3
     .short 141
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \dummy
+    .short \dummy2
+    .short \dummy3
     .endm
 
-    .macro ScrCmd_08E arg0, arg1, arg2
+    .macro Dummy08E dummy, dummy2, dummy3
     .short 142
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \dummy
+    .short \dummy2
+    .short \dummy3
     .endm
 
-    .macro ScrCmd_08F arg0, arg1, arg2
+    .macro GiveSphere type, size, destVar
     .short 143
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \type
+    .short \size
+    .short \destVar
     .endm
 
-    .macro ScrCmd_090 arg0, arg1, arg2
+    .macro Dummy090 dummy, dummy2, dummy3
     .short 144
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \dummy
+    .short \dummy2
+    .short \dummy3
     .endm
 
-    .macro ScrCmd_091 arg0, arg1, arg2
+    .macro Dummy091 dummy, dummy2, dummy3
     .short 145
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \dummy
+    .short \dummy2
+    .short \dummy3
     .endm
 
-    .macro ScrCmd_092 arg0, arg1, arg2
+    .macro Dummy092 dummy, dummy2, dummy3
     .short 146
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \dummy
+    .short \dummy2
+    .short \dummy3
     .endm
 
     .macro ScrCmd_093 arg0, arg1
@@ -1735,9 +1735,9 @@
     .short \destVarID
     .endm
 
-    .macro ScrCmd_12D arg0
+    .macro TrySaveGame destVar
     .short 301
-    .short \arg0
+    .short \destVar
     .endm
 
     .macro ScrCmd_12E arg0, arg1
@@ -2173,13 +2173,13 @@
     .short \z
     .endm
 
-    .macro ScrCmd_187 arg0, arg1, arg2, arg3, arg4
+    .macro SetPosition localID, x, y, z, dir
     .short 391
-    .short \arg0
-    .short \arg1
-    .short \arg2
-    .short \arg3
-    .short \arg4
+    .short \localID
+    .short \x
+    .short \y
+    .short \z
+    .short \dir
     .endm
 
     .macro SetObjectEventMovementType localID, movementType
@@ -2214,11 +2214,11 @@
     .short \arg1
     .endm
 
-    .macro ScrCmd_18D
+    .macro ShowSavingIcon
     .short 397
     .endm
 
-    .macro ScrCmd_18E
+    .macro HideSavingIcon
     .short 398
     .endm
 
@@ -2232,7 +2232,7 @@
     .short \frames
     .endm
 
-    .macro ScrCmd_191
+    .macro SelectMoveTutorPokemon
     .short 401
     .endm
 
@@ -2402,14 +2402,14 @@
     .short \partySlot
     .endm
 
-    .macro ScrCmd_1B1 arg0
+    .macro ShowObject localID
     .short 433
-    .short \arg0
+    .short \localID
     .endm
 
-    .macro ScrCmd_1B2 arg0
+    .macro HideObject localID
     .short 434
-    .short \arg0
+    .short \localID
     .endm
 
     .macro ScrCmd_1B3
@@ -3462,9 +3462,9 @@
     .short 607
     .endm
 
-    .macro ScrCmd_260 arg0
+    .macro IncrementTrainerScore2 scoreID
     .short 608
-    .short \arg0
+    .short \scoreID
     .endm
 
     .macro BufferAccessoryName templateArg, accessory
@@ -3674,10 +3674,10 @@
     .short \destVar
     .endm
 
-    .macro ScrCmd_285 arg0, arg1
+    .macro InitTurnbackCave varPillarsSeen, varRoomsVisited
     .short 645
-    .short \arg0
-    .short \arg1
+    .short \varPillarsSeen
+    .short \varRoomsVisited
     .endm
 
     .macro GetUndergroundItemsGivenAway destVarID
@@ -4476,9 +4476,17 @@
     .short \arg0
     .endm
 
-    .macro ScrCmd_313 arg0
+    .macro CheckHeapMemory assertUnchangedFreeMemory
     .short 787
-    .short \arg0
+    .short \assertUnchangedFreeMemory
+    .endm
+
+    .macro RecordHeapMemory
+    CheckHeapMemory FALSE
+    .endm
+
+    .macro AssertHeapMemory
+    CheckHeapMemory TRUE
     .endm
 
     .macro ScrCmd_314 arg0
@@ -4535,10 +4543,10 @@
     .short \arg0
     .endm
 
-    .macro ScrCmd_31E arg0, arg1
+    .macro TryRevertPokemonForm partySlot, destVar
     .short 798
-    .short \arg0
-    .short \arg1
+    .short \partySlot
+    .short \destVar
     .endm
 
     .macro ResetDistortionWorldPersistedCameraAngles
