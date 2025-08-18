@@ -36,7 +36,7 @@
         "by_level": [
             [ 1, "MOVE_SCRATCH" ],
             [ 1, "MOVE_GROWL" ],
-            [ 7, "MOVE_EMBER" ],
+            [ 6, "MOVE_EMBER" ],
             [ 10, "MOVE_SMOKE_SCREEN" ],
             [ 16, "MOVE_DRAGON_RAGE" ],
             [ 19, "MOVE_SCARY_FACE" ],

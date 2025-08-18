@@ -37,6 +37,7 @@
             [ 1, "MOVE_POUND" ],
             [ 1, "MOVE_LEER" ],
             [ 6, "MOVE_ABSORB" ],
+            [ 7, "MOVE_VINE_WHIP" ],
             [ 11, "MOVE_QUICK_ATTACK" ],
             [ 16, "MOVE_PURSUIT" ],
             [ 21, "MOVE_SCREECH" ],

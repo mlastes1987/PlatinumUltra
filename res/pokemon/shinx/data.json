@@ -36,8 +36,8 @@
         "by_level": [
             [ 1, "MOVE_TACKLE" ],
             [ 5, "MOVE_LEER" ],
-            [ 9, "MOVE_CHARGE" ],
-            [ 13, "MOVE_SPARK" ],
+            [ 7, "MOVE_CHARGE" ],
+            [ 9, "MOVE_SPARK" ],
             [ 17, "MOVE_BITE" ],
             [ 21, "MOVE_ROAR" ],
             [ 25, "MOVE_SWAGGER" ],

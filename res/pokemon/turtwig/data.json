@@ -36,8 +36,9 @@
         "by_level": [
             [ 1, "MOVE_TACKLE" ],
             [ 5, "MOVE_WITHDRAW" ],
-            [ 9, "MOVE_ABSORB" ],
-            [ 13, "MOVE_RAZOR_LEAF" ],
+            [ 6, "MOVE_ABSORB" ],
+            [ 7, "MOVE_RAZOR_LEAF" ],
+            [ 10, "MOVE_MAGNITUDE" ],
             [ 17, "MOVE_CURSE" ],
             [ 21, "MOVE_BITE" ],
             [ 25, "MOVE_MEGA_DRAIN" ],

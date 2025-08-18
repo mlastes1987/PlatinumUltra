@@ -39,6 +39,7 @@
             [ 1, "MOVE_CONFUSION" ],
             [ 16, "MOVE_CONFUSION" ],
             [ 18, "MOVE_DISABLE" ],
+            [ 20, "MOVE_SPARK" ],
             [ 22, "MOVE_MIRACLE_EYE" ],
             [ 24, "MOVE_PSYBEAM" ],
             [ 28, "MOVE_REFLECT" ],
@@ -107,7 +108,7 @@
         ]
     },
     "evolutions": [
-        [ "EVO_TRADE", "SPECIES_ALAKAZAM" ]
+        [ "EVO_LEVEL", 37, "SPECIES_ALAKAZAM" ]
     ],
     "offspring": "SPECIES_ABRA",
     "footprint": {

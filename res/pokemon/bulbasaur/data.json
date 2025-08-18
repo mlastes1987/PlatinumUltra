@@ -35,6 +35,7 @@
     "learnset": {
         "by_level": [
             [ 1, "MOVE_TACKLE" ],
+            [ 1, "MOVE_ABSORB" ],
             [ 3, "MOVE_GROWL" ],
             [ 7, "MOVE_LEECH_SEED" ],
             [ 9, "MOVE_VINE_WHIP" ],

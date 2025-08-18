@@ -43,6 +43,7 @@
             [ 15, "MOVE_BIDE" ],
             [ 16, "MOVE_MUD_SHOT" ],
             [ 20, "MOVE_FORESIGHT" ],
+            [ 22, "MOVE_ICE_FANG" ],
             [ 25, "MOVE_MUD_BOMB" ],
             [ 31, "MOVE_TAKE_DOWN" ],
             [ 37, "MOVE_MUDDY_WATER" ],

@@ -45,6 +45,7 @@
             [ 30, "MOVE_RECOVER" ],
             [ 34, "MOVE_PSYCHO_CUT" ],
             [ 36, "MOVE_CALM_MIND" ],
+            [ 38, "MOVE_THUNDERBOLT" ],
             [ 40, "MOVE_PSYCHIC" ],
             [ 42, "MOVE_FUTURE_SIGHT" ],
             [ 46, "MOVE_TRICK" ]
