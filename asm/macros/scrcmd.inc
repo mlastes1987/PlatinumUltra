@@ -27,6 +27,7 @@
 #include "generated/trainers.h"
 #include "constants/boat_cutscene.h"
 #include "constants/colors.h"
+#include "constants/elevator_dirs.h"
 #include "constants/fade_screen.h"
 #include "constants/forms.h"
 #include "constants/honey_tree.h"
@@ -977,10 +978,10 @@
     .short \move
     .endm
 
-    .macro ScrCmd_09B arg0, arg1
+    .macro GetRematchTrainerID trainerID, destVar
     .short 155
-    .short \arg0
-    .short \arg1
+    .short \trainerID
+    .short \destVar
     .endm
 
     .macro ScrCmd_Unused_09C
@@ -1650,13 +1651,13 @@
     .short \arg1
     .endm
 
-    .macro ScrCmd_11B arg0, arg1, arg2, arg3, arg4
+    .macro SetSpecialLocation mapId, warpId, x, z, dir
     .short 283
-    .short \arg0
-    .short \arg1
-    .short \arg2
-    .short \arg3
-    .short \arg4
+    .short \mapId
+    .short \warpId
+    .short \x
+    .short \z
+    .short \dir
     .endm
 
     /*
@@ -3222,10 +3223,10 @@
     .short \arg0
     .endm
 
-    .macro ScrCmd_23C arg0, arg1
+    .macro PlayElevatorAnimation elevatorDir, loopCount
     .short 572
-    .short \arg0
-    .short \arg1
+    .short \elevatorDir
+    .short \loopCount
     .endm
 
     .macro PlayBoatCutscene travelDir, exitDir, mapID, x, z
@@ -3680,16 +3681,16 @@
     .byte \arg3
     .endm
 
-    .macro ScrCmd_281 arg0, arg1, arg2
+    .macro GetPartyMonContestStat slot, contestType, destVar
     .short 641
-    .short \arg0
-    .short \arg1
-    .short \arg2
+    .short \slot
+    .short \contestType
+    .short \destVar
     .endm
 
-    .macro ScrCmd_282 arg0
+    .macro CheckIsTodayPlayerBirthday destVar
     .short 642
-    .short \arg0
+    .short \destVar
     .endm
 
     .macro SetInitialVolumeForSequence seqID, volume
@@ -3940,10 +3941,10 @@
     .short 684
     .endm
 
-    .macro ScrCmd_2AD arg0, arg1
+    .macro GetMovementType destVar, localID
     .short 685
-    .short \arg0
-    .short \arg1
+    .short \destVar
+    .short \localID
     .endm
 
     .macro IsSequencePlaying seqID, destVar
@@ -4811,10 +4812,10 @@
     .byte \arg0
     .endm
 
-    .macro ScrCmd_347 arg0, arg1
+    .macro BufferFloorNumber templateArg, floor
     .short 839
-    .byte \arg0
-    .byte \arg1
+    .byte \templateArg
+    .byte \floor
     .endm
 
 

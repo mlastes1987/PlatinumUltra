@@ -18,6 +18,7 @@
 #include "generated/first_arrival_to_zones.h"
 #include "generated/journal_location_events.h"
 #include "generated/movement_actions.h"
+#include "generated/movement_types.h"
 #include "generated/save_types.h"
 #include "generated/signpost_commands.h"
 
@@ -72,13 +73,13 @@
 #include "overlay005/signpost.h"
 #include "overlay005/size_contest.h"
 #include "overlay005/vs_seeker.h"
+#include "overlay006/elevator_animation.h"
 #include "overlay006/hm_cut_in.h"
 #include "overlay006/npc_trade.h"
 #include "overlay006/ov6_0223E140.h"
 #include "overlay006/ov6_02242AF0.h"
 #include "overlay006/ov6_02243004.h"
 #include "overlay006/ov6_02246C24.h"
-#include "overlay006/ov6_02246F00.h"
 #include "overlay006/ov6_02247078.h"
 #include "overlay006/ov6_02247830.h"
 #include "overlay006/ov6_02247D30.h"
@@ -356,12 +357,12 @@ static BOOL ScrCmd_GetPlayerDir(ScriptContext *ctx);
 static BOOL ScrCmd_06B(ScriptContext *ctx);
 static BOOL ScrCmd_06C(ScriptContext *ctx);
 static BOOL ScrCmd_06D(ScriptContext *ctx);
-static BOOL ScrCmd_2AD(ScriptContext *ctx);
+static BOOL ScrCmd_GetMovementType(ScriptContext *ctx);
 static BOOL ScrCmd_Unused_06E(ScriptContext *ctx);
 static BOOL ScrCmd_093(ScriptContext *ctx);
 static BOOL ScrCmd_094(ScriptContext *ctx);
 static BOOL ScrCmd_GetPartyMonForm(ScriptContext *ctx);
-static BOOL ScrCmd_09B(ScriptContext *ctx);
+static BOOL ScrCmd_GetRematchTrainerID(ScriptContext *ctx);
 static BOOL ScrCmd_315(ScriptContext *ctx);
 static BOOL ScrCmd_Unused_09C(ScriptContext *ctx);
 static BOOL ScrCmd_Unused_09D(ScriptContext *ctx);
@@ -436,7 +437,7 @@ static BOOL ScrCmd_Unused_0F4(ScriptContext *ctx);
 static BOOL ScrCmd_Unused_0F5(ScriptContext *ctx);
 static BOOL ScrCmd_StartLinkBattle(ScriptContext *ctx);
 static BOOL ScrCmd_Unused_0F7(ScriptContext *ctx);
-static BOOL ScrCmd_11B(ScriptContext *ctx);
+static BOOL ScrCmd_SetSpecialLocation(ScriptContext *ctx);
 static BOOL ScrCmd_GetFloorsAbove(ScriptContext *ctx);
 static BOOL ScrCmd_ShowCurrentFloor(ScriptContext *ctx);
 static BOOL ScrCmd_GetLocalDexSeenCount(ScriptContext *ctx);
@@ -621,7 +622,7 @@ static BOOL ScrCmd_GetDayOfWeek(ScriptContext *ctx);
 static BOOL ScrCmd_239(ScriptContext *ctx);
 static BOOL ScrCmd_GetSpeciesFootprintType(ScriptContext *ctx);
 static BOOL ScrCmd_23B(ScriptContext *ctx);
-static BOOL ScrCmd_23C(ScriptContext *ctx);
+static BOOL ScrCmd_PlayElevatorAnimation(ScriptContext *ctx);
 static BOOL ScrCmd_PlayBoatCutscene(ScriptContext *ctx);
 static BOOL ScrCmd_243(ScriptContext *ctx);
 static BOOL ScrCmd_244(ScriptContext *ctx);
@@ -664,7 +665,7 @@ static BOOL ScrCmd_InitDailyRandomLevel(ScriptContext *ctx);
 static BOOL ScrCmd_27D(ScriptContext *ctx);
 static BOOL ScrCmd_CheckIsDepartmentStoreRegular(ScriptContext *ctx);
 static BOOL ScrCmd_27F(ScriptContext *ctx);
-static BOOL ScrCmd_282(ScriptContext *ctx);
+static BOOL ScrCmd_CheckIsTodayPlayerBirthday(ScriptContext *ctx);
 static BOOL ScrCmd_GetUnownFormsSeenCount(ScriptContext *ctx);
 static BOOL ScrCmd_InitTurnbackCave(ScriptContext *ctx);
 static BOOL ScrCmd_GetUndergroundItemsGivenAway(ScriptContext *ctx);
@@ -925,7 +926,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_ResetPartyMonMoveSlot,
     ScrCmd_CheckPartyMonHasMove,
     ScrCmd_FindPartySlotWithMove,
-    ScrCmd_09B,
+    ScrCmd_GetRematchTrainerID,
     ScrCmd_Unused_09C,
     ScrCmd_Unused_09D,
     ScrCmd_Unused_09E,
@@ -1053,7 +1054,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_118,
     ScrCmd_CheckPartyPokerus,
     ScrCmd_11A,
-    ScrCmd_11B,
+    ScrCmd_SetSpecialLocation,
     ScrCmd_GetFloorsAbove,
     ScrCmd_ShowCurrentFloor,
     ScrCmd_GetLocalDexSeenCount,
@@ -1342,7 +1343,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_239,
     ScrCmd_GetSpeciesFootprintType,
     ScrCmd_23B,
-    ScrCmd_23C,
+    ScrCmd_PlayElevatorAnimation,
     ScrCmd_PlayBoatCutscene,
     ScrCmd_MysteryGiftGive,
     ScrCmd_Dummy23F,
@@ -1411,8 +1412,8 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_CheckIsDepartmentStoreRegular,
     ScrCmd_27F,
     ScrCmd_280,
-    ScrCmd_281,
-    ScrCmd_282,
+    ScrCmd_GetPartyMonContestStat,
+    ScrCmd_CheckIsTodayPlayerBirthday,
     ScrCmd_SetInitialVolumeForSequence,
     ScrCmd_GetUnownFormsSeenCount,
     ScrCmd_InitTurnbackCave,
@@ -1455,7 +1456,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_2AA,
     ScrCmd_2AB,
     ScrCmd_UnlockMysteryGift,
-    ScrCmd_2AD,
+    ScrCmd_GetMovementType,
     ScrCmd_IsSequencePlaying,
     ScrCmd_2AF,
     ScrCmd_2B0,
@@ -1609,7 +1610,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_344,
     ScrCmd_345,
     ScrCmd_346,
-    ScrCmd_347,
+    ScrCmd_BufferFloorNumber,
 };
 
 const u32 Unk_020EAB80 = NELEMS(Unk_020EAC58);
@@ -3364,15 +3365,15 @@ static BOOL ScrCmd_06D(ScriptContext *ctx)
     return FALSE;
 }
 
-static BOOL ScrCmd_2AD(ScriptContext *ctx)
+static BOOL ScrCmd_GetMovementType(ScriptContext *ctx)
 {
-    u16 *v1 = ScriptContext_GetVarPointer(ctx);
+    u16 *destVar = ScriptContext_GetVarPointer(ctx);
 
-    *v1 = 0;
+    *destVar = MOVEMENT_TYPE_NONE;
     MapObject *mapObj = MapObjMan_LocalMapObjByIndex(ctx->fieldSystem->mapObjMan, ScriptContext_GetVar(ctx));
 
     if (mapObj != NULL) {
-        *v1 = MapObject_GetMovementType(mapObj);
+        *destVar = MapObject_GetMovementType(mapObj);
     }
 
     return FALSE;
@@ -3667,13 +3668,13 @@ static BOOL ScrCmd_GetSummarySelectedMoveSlot(ScriptContext *ctx)
     return TRUE;
 }
 
-static BOOL ScrCmd_09B(ScriptContext *ctx)
+static BOOL ScrCmd_GetRematchTrainerID(ScriptContext *ctx)
 {
-    MapObject **v2 = FieldSystem_GetScriptMemberPtr(ctx->fieldSystem, SCRIPT_MANAGER_TARGET_OBJECT);
-    u16 v3 = ScriptContext_GetVar(ctx);
-    u16 *v4 = ScriptContext_GetVarPointer(ctx);
+    MapObject **trainerObj = FieldSystem_GetScriptMemberPtr(ctx->fieldSystem, SCRIPT_MANAGER_TARGET_OBJECT);
+    u16 trainerID = ScriptContext_GetVar(ctx);
+    u16 *destVar = ScriptContext_GetVarPointer(ctx);
 
-    *v4 = VsSeeker_GetRematchTrainerID(ctx->fieldSystem, *v2, v3);
+    *destVar = VsSeeker_GetRematchTrainerID(ctx->fieldSystem, *trainerObj, trainerID);
     return FALSE;
 }
 
@@ -4746,7 +4747,7 @@ static BOOL ScrCmd_Unused_0F7(ScriptContext *ctx)
     return TRUE;
 }
 
-static BOOL ScrCmd_11B(ScriptContext *ctx)
+static BOOL ScrCmd_SetSpecialLocation(ScriptContext *ctx)
 {
     Location location;
 
@@ -6394,12 +6395,12 @@ static BOOL ScrCmd_23B(ScriptContext *ctx)
     return TRUE;
 }
 
-static BOOL ScrCmd_23C(ScriptContext *ctx)
+static BOOL ScrCmd_PlayElevatorAnimation(ScriptContext *ctx)
 {
-    u16 v0 = ScriptContext_GetVar(ctx);
-    u16 v1 = ScriptContext_GetVar(ctx);
+    u16 elevatorDir = ScriptContext_GetVar(ctx);
+    u16 animationLoopCount = ScriptContext_GetVar(ctx);
 
-    ov6_02246F00(ctx->fieldSystem, (u8)v0, (u8)v1);
+    FieldSystem_PlayElevatorAnimation(ctx->fieldSystem, (u8)elevatorDir, (u8)animationLoopCount);
     return TRUE;
 }
 
@@ -6913,16 +6914,16 @@ static BOOL ScrCmd_CheckIsDepartmentStoreRegular(ScriptContext *ctx)
     return FALSE;
 }
 
-static BOOL ScrCmd_282(ScriptContext *ctx)
+static BOOL ScrCmd_CheckIsTodayPlayerBirthday(ScriptContext *ctx)
 {
-    u16 *v0 = ScriptContext_GetVarPointer(ctx);
+    u16 *destVar = ScriptContext_GetVarPointer(ctx);
     FieldSystem *fieldSystem = ctx->fieldSystem;
-    SystemData *v2 = SaveData_GetSystemData(ctx->fieldSystem->saveData);
+    SystemData *systemData = SaveData_GetSystemData(ctx->fieldSystem->saveData);
 
-    if ((SystemData_GetOwnerBirthMonth(v2) == FieldSystem_GetMonth(fieldSystem)) && (SystemData_GetOwnerBirthDayOfMonth(v2) == FieldSystem_GetDayOfMonth(fieldSystem))) {
-        *v0 = 1;
+    if (SystemData_GetOwnerBirthMonth(systemData) == FieldSystem_GetMonth(fieldSystem) && SystemData_GetOwnerBirthDayOfMonth(systemData) == FieldSystem_GetDayOfMonth(fieldSystem)) {
+        *destVar = TRUE;
     } else {
-        *v0 = 0;
+        *destVar = FALSE;
     }
 
     return FALSE;
@@ -7430,7 +7431,7 @@ static BOOL ScrCmd_2C4(ScriptContext *ctx)
 
     *v0 = v2;
 
-    if ((v1 == ((((((0 + 1) + 1) + 1) + 1) + 1) + 0)) || (v1 == ((((((0 + 1) + 1) + 1) + 1) + 1) + 1))) {
+    if (v1 == 5 || v1 == 6) {
         v2->unk_00 = ctx->fieldSystem->unk_AC;
     } else {
         v2->unk_00 = NULL;
