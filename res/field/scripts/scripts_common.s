@@ -122,7 +122,7 @@ _01BC:
 _01C1:
     ApplyMovement VAR_0x8007, _1260
     WaitMovement
-    GetPartyCountHatched VAR_0x8006
+    CountPartyNonEggs VAR_0x8006
     ScrCmd_23B VAR_0x8006
     ApplyMovement VAR_0x8007, _1278
     WaitMovement
@@ -679,7 +679,7 @@ _0910:
 _091D:
     PlaySound SEQ_FANFA4
     SendGoodToPC VAR_0x8004, VAR_0x8005, VAR_RESULT
-    ScrCmd_33E 0, VAR_0x8004
+    BufferUndergroundGoodsNameWithArticle 0, VAR_0x8004
     Message pl_msg_00000213_00108
     BufferUndergroundGoodsName 0, VAR_0x8004
     WaitSound
@@ -890,15 +890,15 @@ _0BEE:
     GoTo _0C1C
 
 _0C06:
-    ScrCmd_24B 90
-    ScrCmd_24C 90
-    ScrCmd_169 90
+    LoadPCAnimation ANIMATION_TAG_PC
+    PlayPCBootUpAnimation ANIMATION_TAG_PC
+    WaitForAnimation ANIMATION_TAG_PC
     Return
 
 _0C11:
-    ScrCmd_24D 90
-    ScrCmd_169 90
-    ScrCmd_16A 90
+    PlayPCShutDownAnimation ANIMATION_TAG_PC
+    WaitForAnimation ANIMATION_TAG_PC
+    UnloadAnimation ANIMATION_TAG_PC
     Return
 
 _0C1C:
@@ -1123,7 +1123,7 @@ _0F80:
 _0F94:
     FadeScreenOut
     WaitFadeScreen
-    ScrCmd_16A 90
+    UnloadAnimation ANIMATION_TAG_PC
     Return
 
 _0FA5:

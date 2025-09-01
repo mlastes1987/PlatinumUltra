@@ -186,7 +186,7 @@ Static main
 	Object main.nef.p/src_scrcmd.c.o
 	Object main.nef.p/src_scrcmd_shop.c.o
 	Object main.nef.p/src_unk_02046C7C.c.o
-	Object main.nef.p/src_unk_020474B8.c.o
+	Object main.nef.p/src_scrcmd_strings.c.o
 	Object main.nef.p/src_scrcmd_jubilife_lottery.c.o
 	Object main.nef.p/src_scrcmd_sound.c.o
 	Object main.nef.p/src_scrcmd_trainer.c.o
@@ -202,7 +202,7 @@ Static main
 	Object main.nef.p/src_scrcmd_money.c.o
 	Object main.nef.p/src_scrcmd_daycare.c.o
 	Object main.nef.p/src_scrcmd_amity_square.c.o
-	Object main.nef.p/src_unk_0204CFFC.c.o
+	Object main.nef.p/src_scrcmd_party.c.o
 	Object main.nef.p/src_unk_0204E240.c.o
 	Object main.nef.p/src_scrcmd_game_corner_prize.c.o
 	Object main.nef.p/src_scrcmd_system_flags.c.o
@@ -582,7 +582,7 @@ Overlay overlay6
 	Object main.nef.p/src_overlay006_repel_step_update.c.o
 	Object main.nef.p/src_overlay006_ov6_02246C24.c.o
 	Object main.nef.p/src_overlay006_elevator_animation.c.o
-	Object main.nef.p/src_overlay006_ov6_02247078.c.o
+	Object main.nef.p/src_overlay006_pc_animation.c.o
 	Object main.nef.p/src_overlay006_ov6_02247100.c.o
 	Object main.nef.p/src_overlay006_trophy_garden_daily_encounters.c.o
 	Object main.nef.p/src_overlay006_feebas_fishing.c.o
@@ -843,14 +843,14 @@ Overlay overlay23
 	Object main.nef.p/src_overlay023_underground_spheres.c.o
 	Object main.nef.p/src_overlay023_ov23_02241F74.c.o
 	Object main.nef.p/src_overlay023_ov23_0224340C.c.o
-	Object main.nef.p/src_overlay023_ov23_02248C08.c.o
+	Object main.nef.p/src_overlay023_underground_item_list_menu.c.o
 	Object main.nef.p/src_overlay023_ov23_02248F1C.c.o
 	Object main.nef.p/src_overlay023_ov23_02249918.c.o
 	Object main.nef.p/src_overlay023_ov23_022499E4.c.o
 	Object main.nef.p/src_overlay023_ov23_0224A1D0.c.o
 	Object main.nef.p/src_overlay023_ov23_0224B05C.c.o
 	Object main.nef.p/src_overlay023_ov23_0224DC40.c.o
-	Object main.nef.p/src_overlay023_ov23_0224F294.c.o
+	Object main.nef.p/src_overlay023_underground_menu.c.o
 	Object main.nef.p/src_overlay023_ov23_0225128C.c.o
 	Object main.nef.p/src_overlay023_ov23_022521F0.c.o
 	Object main.nef.p/src_overlay023_ov23_02253598.c.o
@@ -977,11 +977,11 @@ Overlay overlay39
 	Object main.nef.p/src_overlay039_ov39_022563DC.c.o
 }
 
-Overlay overlay40
+Overlay poketch_daycare_checker
 {
 	After overlay25
-	Object main.nef.p/src_overlay040_ov40_022561C0.c.o
-	Object main.nef.p/src_overlay040_ov40_0225645C.c.o
+	Object main.nef.p/src_applications_poketch_daycare_checker_main.c.o
+	Object main.nef.p/src_applications_poketch_daycare_checker_graphics.c.o
 }
 
 Overlay overlay41

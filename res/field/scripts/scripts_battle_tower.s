@@ -400,15 +400,15 @@ _06AE:
     ApplyMovement VAR_MAP_LOCAL_2, _1248
     ApplyMovement LOCALID_PLAYER, _1260
     WaitMovement
-    ScrCmd_168 0, 0, VAR_MAP_LOCAL_3, 2, 77
-    ScrCmd_16B 77
-    ScrCmd_169 77
+    LoadDoorAnimation 0, 0, VAR_MAP_LOCAL_3, 2, ANIMATION_TAG_DOOR_1
+    PlayDoorOpenAnimation ANIMATION_TAG_DOOR_1
+    WaitForAnimation ANIMATION_TAG_DOOR_1
     ApplyMovement VAR_MAP_LOCAL_2, _1254
     ApplyMovement LOCALID_PLAYER, _126C
     WaitMovement
-    ScrCmd_16C 77
-    ScrCmd_169 77
-    ScrCmd_16A 77
+    PlayDoorCloseAnimation ANIMATION_TAG_DOOR_1
+    WaitForAnimation ANIMATION_TAG_DOOR_1
+    UnloadAnimation ANIMATION_TAG_DOOR_1
     Return
 
 _06EE:
@@ -631,7 +631,7 @@ _0A5A:
     GoToIfNe VAR_RESULT, 0, _0784
     ScrCmd_1E3 VAR_0x8004, VAR_0x8005
     BufferNumber 0, VAR_0x8004
-    ScrCmd_280 1, VAR_0x8005, 2, 3
+    BufferVarPaddingDigits 1, VAR_0x8005, PADDING_MODE_ZEROES, 3
     Message 52
     WaitABPress
     GoTo _0789

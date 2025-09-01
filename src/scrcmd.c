@@ -80,11 +80,11 @@
 #include "overlay006/ov6_02242AF0.h"
 #include "overlay006/ov6_02243004.h"
 #include "overlay006/ov6_02246C24.h"
-#include "overlay006/ov6_02247078.h"
 #include "overlay006/ov6_02247830.h"
 #include "overlay006/ov6_02247D30.h"
 #include "overlay006/ov6_02247F5C.h"
 #include "overlay006/ov6_02248948.h"
+#include "overlay006/pc_animation.h"
 #include "overlay006/swarm.h"
 #include "overlay006/trophy_garden_daily_encounters.h"
 #include "overlay007/communication_club.h"
@@ -154,8 +154,10 @@
 #include "scrcmd_jubilife_lottery.h"
 #include "scrcmd_money.h"
 #include "scrcmd_mystery_gift.h"
+#include "scrcmd_party.h"
 #include "scrcmd_shop.h"
 #include "scrcmd_sound.h"
+#include "scrcmd_strings.h"
 #include "scrcmd_system_flags.h"
 #include "scrcmd_underground_inventory.h"
 #include "screen_fade.h"
@@ -187,14 +189,12 @@
 #include "unk_020393C8.h"
 #include "unk_0203D1B8.h"
 #include "unk_02046C7C.h"
-#include "unk_020474B8.h"
 #include "unk_02048614.h"
 #include "unk_02048BD0.h"
 #include "unk_02048DD8.h"
 #include "unk_020494DC.h"
 #include "unk_0204AEE8.h"
 #include "unk_0204B64C.h"
-#include "unk_0204CFFC.h"
 #include "unk_0204E240.h"
 #include "unk_0204EDA4.h"
 #include "unk_0204F04C.h"
@@ -508,11 +508,11 @@ static BOOL ScrCmd_SetWarpEventPos(ScriptContext *ctx);
 static BOOL ScrCmd_18B(ScriptContext *ctx);
 static BOOL ScrCmd_18C(ScriptContext *ctx);
 static BOOL ScrCmd_18F(ScriptContext *ctx);
-static BOOL ScrCmd_168(ScriptContext *ctx);
-static BOOL ScrCmd_169(ScriptContext *ctx);
-static BOOL ScrCmd_16A(ScriptContext *ctx);
-static BOOL ScrCmd_16B(ScriptContext *ctx);
-static BOOL ScrCmd_16C(ScriptContext *ctx);
+static BOOL ScrCmd_LoadDoorAnimation(ScriptContext *ctx);
+static BOOL ScrCmd_WaitForAnimation(ScriptContext *ctx);
+static BOOL ScrCmd_UnloadAnimation(ScriptContext *ctx);
+static BOOL ScrCmd_PlayDoorOpenAnimation(ScriptContext *ctx);
+static BOOL ScrCmd_PlayDoorCloseAnimation(ScriptContext *ctx);
 static BOOL ScrCmd_InitPersistedMapFeaturesForPastoriaGym(ScriptContext *ctx);
 static BOOL ScrCmd_170(ScriptContext *ctx);
 static BOOL ScrCmd_InitPersistedMapFeaturesForHearthomeGym(ScriptContext *ctx);
@@ -630,9 +630,9 @@ static BOOL ScrCmd_245(ScriptContext *ctx);
 static BOOL ScrCmd_GetGameVersion(ScriptContext *ctx);
 static BOOL ScrCmd_249(ScriptContext *ctx);
 static BOOL ScrCmd_GetCapturedFlagCount(ScriptContext *ctx);
-static BOOL ScrCmd_24B(ScriptContext *ctx);
-static BOOL ScrCmd_24C(ScriptContext *ctx);
-static BOOL ScrCmd_24D(ScriptContext *ctx);
+static BOOL ScrCmd_LoadPCAnimation(ScriptContext *ctx);
+static BOOL ScrCmd_PlayPCBootUpAnimation(ScriptContext *ctx);
+static BOOL ScrCmd_PlayPCShutDownAnimation(ScriptContext *ctx);
 static BOOL ScrCmd_GetPCBoxesFreeSlotCount(ScriptContext *ctx);
 static BOOL ScrCmd_258(ScriptContext *ctx);
 static BOOL ScrCmd_259(ScriptContext *ctx);
@@ -923,7 +923,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_GetPartyMonForm,
     ScrCmd_GivePokemon,
     ScrCmd_GiveEgg,
-    ScrCmd_ResetPartyMonMoveSlot,
+    ScrCmd_ResetPartyMonMoveSlot_Unused,
     ScrCmd_CheckPartyMonHasMove,
     ScrCmd_FindPartySlotWithMove,
     ScrCmd_GetRematchTrainerID,
@@ -931,7 +931,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_Unused_09D,
     ScrCmd_Unused_09E,
     ScrCmd_Unused_09F,
-    ScrCmd_0A0,
+    ScrCmd_Dummy0A0,
     ScrCmd_ReturnToField,
     ScrCmd_0A2,
     ScrCmd_0A3,
@@ -988,7 +988,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_BufferPartyMonNickname,
     ScrCmd_BufferPoketchAppName,
     ScrCmd_BufferTrainerClassName,
-    ScrCmd_0D9,
+    ScrCmd_BufferTrainerClassFromAppearance,
     ScrCmd_BufferSpeciesNameFromVar,
     ScrCmd_BufferPlayerStarterSpeciesName,
     ScrCmd_BufferRivalStarterSpeciesName,
@@ -997,7 +997,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_BufferUndergroundGoodsName,
     ScrCmd_BufferUndergroundTrapName,
     ScrCmd_BufferUndergroundItemName,
-    ScrCmd_0E2,
+    ScrCmd_BufferMapName,
     ScrCmd_GetSwarmMapAndSpecies,
     ScrCmd_GetTrainerID,
     ScrCmd_StartTrainerBattle,
@@ -1053,7 +1053,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_117,
     ScrCmd_118,
     ScrCmd_CheckPartyPokerus,
-    ScrCmd_11A,
+    ScrCmd_GetPartyMonGender_Unused,
     ScrCmd_SetSpecialLocation,
     ScrCmd_GetFloorsAbove,
     ScrCmd_ShowCurrentFloor,
@@ -1131,11 +1131,11 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_ClearStepFlag,
     ScrCmd_CheckGameCompleted,
     ScrCmd_SetGameCompleted,
-    ScrCmd_168,
-    ScrCmd_169,
-    ScrCmd_16A,
-    ScrCmd_16B,
-    ScrCmd_16C,
+    ScrCmd_LoadDoorAnimation,
+    ScrCmd_WaitForAnimation,
+    ScrCmd_UnloadAnimation,
+    ScrCmd_PlayDoorOpenAnimation,
+    ScrCmd_PlayDoorCloseAnimation,
     ScrCmd_BufferDaycareMonNicknames,
     ScrCmd_GetDaycareState,
     ScrCmd_InitPersistedMapFeaturesForPastoriaGym,
@@ -1150,8 +1150,8 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_178,
     ScrCmd_179,
     ScrCmd_17A,
-    ScrCmd_17B,
-    ScrCmd_17C,
+    ScrCmd_BufferBerryName,
+    ScrCmd_BufferNatureName,
     ScrCmd_17D,
     ScrCmd_17E,
     ScrCmd_17F,
@@ -1180,11 +1180,11 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_196,
     ScrCmd_197,
     ScrCmd_GetPartyMonSpecies,
-    ScrCmd_199,
-    ScrCmd_GetPartyCountHatched,
+    ScrCmd_CheckIsPartyMonOutsider,
+    ScrCmd_CountPartyNonEggs,
     ScrCmd_CountAliveMonsExcept,
-    ScrCmd_19C,
-    ScrCmd_19D,
+    ScrCmd_CountAliveMonsAndBoxMons,
+    ScrCmd_CountPartyEggs,
     ScrCmd_19E,
     ScrCmd_19F,
     ScrCmd_1A0,
@@ -1213,8 +1213,8 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_GetRandom,
     ScrCmd_GetRandom2,
     ScrCmd_GetFriendshipByPartySlot,
-    ScrCmd_1BA,
-    ScrCmd_1BB,
+    ScrCmd_IncreasePartyMonFriendship,
+    ScrCmd_DecreasePartyMonFriendship_Unused,
     ScrCmd_BufferDaycareNicknameLevelGender,
     ScrCmd_GetPlayerDir,
     ScrCmd_GetDaycareCompatibilityLevel,
@@ -1228,9 +1228,9 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_SelectPartyMonMove,
     ScrCmd_GetSelectedPartyMonMove,
     ScrCmd_GetPartyMonMoveCount,
-    ScrCmd_1C9,
-    ScrCmd_1CA,
-    ScrCmd_1CB,
+    ScrCmd_ClearPartyMonMoveSlot,
+    ScrCmd_GetPartyMonMove,
+    ScrCmd_BufferPartyMoveName,
     ScrCmd_GiveJournal,
     ScrCmd_CreateJournalEvent,
     ScrCmd_Unused_1CE,
@@ -1265,15 +1265,15 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_1EB,
     ScrCmd_AddTrophyGardenMon,
     ScrCmd_GetTrophyGardenSlot1Species,
-    ScrCmd_1EE,
+    ScrCmd_GetPartyMonHeldItem_Unused,
     ScrCmd_Unused_1EF,
-    ScrCmd_1F0,
+    ScrCmd_DeletePartyMonHeldItem_Unused,
     ScrCmd_1F1,
     ScrCmd_1F2,
     ScrCmd_1F3,
     ScrCmd_1F4,
     ScrCmd_1F5,
-    ScrCmd_1F6,
+    ScrCmd_CountPartyMonsBelowLevelThreshold,
     ScrCmd_SurvivePoison,
     ScrCmd_1F8,
     ScrCmd_Dummy1F9,
@@ -1301,8 +1301,8 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_20F,
     ScrCmd_210,
     ScrCmd_SetPlayerHeightCalculationEnabled,
-    ScrCmd_212,
-    ScrCmd_213,
+    ScrCmd_GetPartyMonNature,
+    ScrCmd_FindPartySlotWithNature,
     ScrCmd_GetSpiritombCounter,
     ScrCmd_ClearAmitySquareStepCount,
     ScrCmd_GetAmitySquareStepCount,
@@ -1329,11 +1329,11 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_22B,
     ScrCmd_22C,
     ScrCmd_GetSetNationalDexEnabled,
-    ScrCmd_22E,
-    ScrCmd_22F,
+    ScrCmd_CountPartyMonRibbons_Unused,
+    ScrCmd_CountPartyRibbons,
     ScrCmd_GetPartyMonRibbon,
     ScrCmd_SetPartyMonRibbon,
-    ScrCmd_232,
+    ScrCmd_BufferRibbonName,
     ScrCmd_GetPartyMonEVTotal,
     ScrCmd_GetDayOfWeek,
     ScrCmd_235,
@@ -1355,12 +1355,12 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_245,
     ScrCmd_GetGameVersion,
     ScrCmd_GetFirstNonEggInParty,
-    ScrCmd_248,
+    ScrCmd_GetPartyMonType,
     ScrCmd_249,
     ScrCmd_GetCapturedFlagCount,
-    ScrCmd_24B,
-    ScrCmd_24C,
-    ScrCmd_24D,
+    ScrCmd_LoadPCAnimation,
+    ScrCmd_PlayPCBootUpAnimation,
+    ScrCmd_PlayPCShutDownAnimation,
     ScrCmd_GetJubilifeLotteryTrainerID,
     ScrCmd_CheckForJubilifeLotteryWinner,
     ScrCmd_RandomizeJubilifeLottery,
@@ -1397,13 +1397,13 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_ClearSpiritombCounter,
     ScrCmd_SetHiddenLocation,
     ScrCmd_271,
-    ScrCmd_272,
+    ScrCmd_BufferTabletName,
     ScrCmd_273,
     ScrCmd_HasCoinsFromValue,
     ScrCmd_CheckBonusRoundStreak,
     ScrCmd_CanAddCoins,
     ScrCmd_GetDailyRandomLevel,
-    ScrCmd_278,
+    ScrCmd_GetPartyMonLevel,
     ScrCmd_Unused_279,
     ScrCmd_27A,
     ScrCmd_InitDailyRandomLevel,
@@ -1411,7 +1411,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_27D,
     ScrCmd_CheckIsDepartmentStoreRegular,
     ScrCmd_27F,
-    ScrCmd_280,
+    ScrCmd_BufferVarPaddingDigits,
     ScrCmd_GetPartyMonContestStat,
     ScrCmd_CheckIsTodayPlayerBirthday,
     ScrCmd_SetInitialVolumeForSequence,
@@ -1462,7 +1462,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_2B0,
     ScrCmd_2B1,
     ScrCmd_2B2,
-    ScrCmd_2B3,
+    ScrCmd_BufferBallSealName,
     ScrCmd_LockLastTalked,
     ScrCmd_2B5,
     ScrCmd_2B6,
@@ -1522,13 +1522,13 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_ShowShardsCost,
     ScrCmd_CloseShardCostWindow,
     ScrCmd_JudgeStats,
-    ScrCmd_2EF,
+    ScrCmd_BufferStatName,
     ScrCmd_InitPersistedMapFeaturesForVilla,
     ScrCmd_2F1,
     ScrCmd_InitPersistedMapFeaturesForDistortionWorld,
-    ScrCmd_2F3,
+    ScrCmd_BufferTrainerName,
     ScrCmd_2F4,
-    ScrCmd_BufferNumberPaddingDigits,
+    ScrCmd_BufferValuePaddingDigits,
     ScrCmd_2F6,
     ScrCmd_2F7,
     ScrCmd_SetScene22,
@@ -1536,7 +1536,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_GetCurrentBGM,
     ScrCmd_2FB,
     ScrCmd_2FC,
-    ScrCmd_2FD,
+    ScrCmd_BufferTypeName,
     ScrCmd_GetItemQuantity,
     ScrCmd_2FF,
     ScrCmd_300,
@@ -1567,7 +1567,7 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_StartGiratinaOriginBattle,
     ScrCmd_WriteSpeciesSeen,
     ScrCmd_31B,
-    ScrCmd_CheckPartyHasFatefulEncounter,
+    ScrCmd_FindPartySlotWithFatefulEncounterSpecies,
     ScrCmd_31D,
     ScrCmd_TryRevertPokemonForm,
     ScrCmd_ResetDistortionWorldPersistedCameraAngles,
@@ -1599,17 +1599,17 @@ const ScrCmdFunc Unk_020EAC58[] = {
     ScrCmd_339,
     ScrCmd_SetMenuXOriginSide,
     ScrCmd_SetMenuYOriginSide,
-    ScrCmd_33C,
+    ScrCmd_BufferItemNameWithArticle,
     ScrCmd_BufferItemNamePlural,
-    ScrCmd_33E,
-    ScrCmd_33F,
-    ScrCmd_340,
-    ScrCmd_341,
+    ScrCmd_BufferUndergroundGoodsNameWithArticle,
+    ScrCmd_BufferUndergroundTrapNameWithArticle,
+    ScrCmd_BufferUndergroundItemNameWithArticle,
+    ScrCmd_BufferSpeciesNameWithArticle,
     ScrCmd_BufferPlayerCounterpartStarterSpeciesNameWithArticle,
-    ScrCmd_343,
-    ScrCmd_344,
-    ScrCmd_345,
-    ScrCmd_346,
+    ScrCmd_BufferAccessoryNameWithArticle,
+    ScrCmd_BufferTrainerClassNameWithArticle,
+    ScrCmd_BufferBallSealNamePlural,
+    ScrCmd_CapitalizeFirstLetter,
     ScrCmd_BufferFloorNumber,
 };
 
@@ -5506,56 +5506,56 @@ static BOOL ScrCmd_18F(ScriptContext *ctx)
     return FALSE;
 }
 
-static BOOL ScrCmd_168(ScriptContext *ctx)
+static BOOL ScrCmd_LoadDoorAnimation(ScriptContext *ctx)
 {
-    u16 v0 = ScriptContext_ReadHalfWord(ctx);
-    u16 v1 = ScriptContext_ReadHalfWord(ctx);
-    u16 v2 = ScriptContext_GetVar(ctx);
-    u16 v3 = ScriptContext_GetVar(ctx);
-    u16 v6 = ScriptContext_ReadByte(ctx);
+    u16 mapX = ScriptContext_ReadHalfWord(ctx);
+    u16 mapZ = ScriptContext_ReadHalfWord(ctx);
+    u16 tileX = ScriptContext_GetVar(ctx);
+    u16 tileZ = ScriptContext_GetVar(ctx);
+    u16 tag = ScriptContext_ReadByte(ctx);
     FieldSystem *fieldSystem = ctx->fieldSystem;
-    int v4, v5;
-    v4 = v0 * 32 + v2;
-    v5 = v1 * 32 + v3;
+    int x, z;
+    x = mapX * MAP_TILES_COUNT_X + tileX;
+    z = mapZ * MAP_TILES_COUNT_Z + tileZ;
 
-    ov5_021D4BF4(fieldSystem, v4, v5, v6);
+    DoorAnimation_FindDoorAndLoad(fieldSystem, x, z, tag);
 
     return FALSE;
 }
 
-static BOOL ScrCmd_169(ScriptContext *ctx)
+static BOOL ScrCmd_WaitForAnimation(ScriptContext *ctx)
 {
-    u8 v0 = ScriptContext_ReadByte(ctx);
+    u8 tag = ScriptContext_ReadByte(ctx);
     FieldSystem *fieldSystem = ctx->fieldSystem;
 
-    ov5_021D4D48(fieldSystem, v0);
+    FieldSystem_WaitForAnimation(fieldSystem, tag);
     return TRUE;
 }
 
-static BOOL ScrCmd_16A(ScriptContext *ctx)
+static BOOL ScrCmd_UnloadAnimation(ScriptContext *ctx)
 {
-    u8 v0 = ScriptContext_ReadByte(ctx);
+    u8 tag = ScriptContext_ReadByte(ctx);
     FieldSystem *fieldSystem = ctx->fieldSystem;
 
-    ov5_021D4D68(fieldSystem, v0);
+    FieldSystem_UnloadAnimation(fieldSystem, tag);
     return FALSE;
 }
 
-static BOOL ScrCmd_16B(ScriptContext *ctx)
+static BOOL ScrCmd_PlayDoorOpenAnimation(ScriptContext *ctx)
 {
-    u8 v0 = ScriptContext_ReadByte(ctx);
+    u8 tag = ScriptContext_ReadByte(ctx);
     FieldSystem *fieldSystem = ctx->fieldSystem;
 
-    ov5_021D4C88(fieldSystem, v0);
+    DoorAnimation_PlayOpenAnimation(fieldSystem, tag);
     return FALSE;
 }
 
-static BOOL ScrCmd_16C(ScriptContext *ctx)
+static BOOL ScrCmd_PlayDoorCloseAnimation(ScriptContext *ctx)
 {
-    u8 v0 = ScriptContext_ReadByte(ctx);
+    u8 tag = ScriptContext_ReadByte(ctx);
     FieldSystem *fieldSystem = ctx->fieldSystem;
 
-    ov5_021D4CEC(fieldSystem, v0);
+    DoorAnimation_PlayCloseAnimation(fieldSystem, tag);
     return FALSE;
 }
 
@@ -6464,31 +6464,31 @@ static BOOL ScrCmd_GetCapturedFlagCount(ScriptContext *ctx)
     return FALSE;
 }
 
-static BOOL ScrCmd_24B(ScriptContext *ctx)
+static BOOL ScrCmd_LoadPCAnimation(ScriptContext *ctx)
 {
     FieldSystem *fieldSystem = ctx->fieldSystem;
-    u8 v1 = ScriptContext_ReadByte(ctx);
+    u8 tag = ScriptContext_ReadByte(ctx);
 
-    ov6_02247078(fieldSystem, v1);
+    FieldSystem_LoadPCAnimation(fieldSystem, tag);
 
     return FALSE;
 }
 
-static BOOL ScrCmd_24C(ScriptContext *ctx)
+static BOOL ScrCmd_PlayPCBootUpAnimation(ScriptContext *ctx)
 {
     FieldSystem *fieldSystem = ctx->fieldSystem;
-    u8 v1 = ScriptContext_ReadByte(ctx);
+    u8 tag = ScriptContext_ReadByte(ctx);
 
-    ov6_022470E8(fieldSystem, v1);
+    FieldSystem_PlayPCBootUpAnimation(fieldSystem, tag);
     return FALSE;
 }
 
-static BOOL ScrCmd_24D(ScriptContext *ctx)
+static BOOL ScrCmd_PlayPCShutDownAnimation(ScriptContext *ctx)
 {
     FieldSystem *fieldSystem = ctx->fieldSystem;
-    u8 v1 = ScriptContext_ReadByte(ctx);
+    u8 tag = ScriptContext_ReadByte(ctx);
 
-    ov6_022470F4(fieldSystem, v1);
+    FieldSystem_PlayPCShutDownAnimation(fieldSystem, tag);
     return FALSE;
 }
 

@@ -156,10 +156,10 @@ _0275:
     GoToIfEq VAR_UNK_0x40DF, 2, _02D2
     SetVar VAR_MAP_LOCAL_9, 0
     ScrCmd_1DE VAR_MAP_LOCAL_9, 0, VAR_0x8004, VAR_0x8005
-    ScrCmd_341 0, VAR_0x8004, 0, 0
+    BufferSpeciesNameWithArticle 0, VAR_0x8004
     BufferMoveName 1, VAR_0x8005
     ScrCmd_1DE VAR_MAP_LOCAL_9, 1, VAR_0x8004, VAR_0x8005
-    ScrCmd_341 2, VAR_0x8004, 0, 0
+    BufferSpeciesNameWithArticle 2, VAR_0x8004
     BufferMoveName 3, VAR_0x8005
     Message 6
     ShowYesNoMenu VAR_RESULT
@@ -292,15 +292,15 @@ _0467:
     End
 
 _0488:
-    ScrCmd_168 0, 0, 8, 2, 77
-    ScrCmd_16B 77
-    ScrCmd_169 77
+    LoadDoorAnimation 0, 0, 8, 2, ANIMATION_TAG_DOOR_1
+    PlayDoorOpenAnimation ANIMATION_TAG_DOOR_1
+    WaitForAnimation ANIMATION_TAG_DOOR_1
     Return
 
 _049B:
-    ScrCmd_16C 77
-    ScrCmd_169 77
-    ScrCmd_16A 77
+    PlayDoorCloseAnimation ANIMATION_TAG_DOOR_1
+    WaitForAnimation ANIMATION_TAG_DOOR_1
+    UnloadAnimation ANIMATION_TAG_DOOR_1
     Return
 
 _04A6:
