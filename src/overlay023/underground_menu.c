@@ -9,7 +9,7 @@
 #include "struct_defs/underground.h"
 
 #include "field/field_system.h"
-#include "overlay005/ov5_021D2F14.h"
+#include "overlay005/sprite_resource_manager.h"
 #include "overlay023/funcptr_ov23_0224F758.h"
 #include "overlay023/ov23_0223E140.h"
 #include "overlay023/ov23_02241F74.h"
@@ -253,19 +253,19 @@ static void UndergroundMenu_InitStartMenuSprites(UndergroundMenu *menu, u8 *opti
 
     NARC *narc = NARC_ctor(NARC_INDEX_GRAPHIC__MENU_GRA, HEAP_ID_FIELD2);
 
-    ov5_021D3190(&menu->unk_74, &capacities, UNDERGROUND_START_MENU_OPTION_COUNT + 1, HEAP_ID_FIELD2);
-    ov5_021D32E8(&menu->unk_74, narc, underground_menu_NCLR, FALSE, 2, NNS_G2D_VRAM_TYPE_2DMAIN, 14528);
-    ov5_021D3374(&menu->unk_74, narc, cursor_cell_NCER, FALSE, 14528);
-    ov5_021D339C(&menu->unk_74, narc, cursor_anim_NANR, FALSE, 14528);
-    ov5_021D3414(&menu->unk_74, narc, cursor_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 14528);
+    SpriteResourceManager_SetCapacities(&menu->spriteManager, &capacities, UNDERGROUND_START_MENU_OPTION_COUNT + 1, HEAP_ID_FIELD2);
+    SpriteResourceManager_LoadPalette(&menu->spriteManager, narc, underground_menu_NCLR, FALSE, 2, NNS_G2D_VRAM_TYPE_2DMAIN, 14528);
+    SpriteResourceManager_LoadCell(&menu->spriteManager, narc, cursor_cell_NCER, FALSE, 14528);
+    SpriteResourceManager_LoadAnimation(&menu->spriteManager, narc, cursor_anim_NANR, FALSE, 14528);
+    SpriteResourceManager_LoadTiles(&menu->spriteManager, narc, cursor_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 14528);
 
-    menu->sprites[ICON_CURSOR_INDEX] = ov5_021D3584(&menu->unk_74, &sSpriteTemplates[UNDERGROUND_MENU_CURSOR_TEMPLATE]);
+    menu->sprites[ICON_CURSOR_INDEX] = SpriteResourceManager_CreateManagedSprite(&menu->spriteManager, &sSpriteTemplates[UNDERGROUND_MENU_CURSOR_TEMPLATE]);
 
     UndergroundMenu_SetStartMenuCursorPos(menu->sprites[ICON_CURSOR_INDEX]->sprite, menu->menuCursorPos);
 
-    ov5_021D3374(&menu->unk_74, narc, underground_icons_cell_NCER, FALSE, 14529);
-    ov5_021D339C(&menu->unk_74, narc, underground_icons_anim_NANR, FALSE, 14529);
-    ov5_021D3414(&menu->unk_74, narc, underground_icons_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 14529);
+    SpriteResourceManager_LoadCell(&menu->spriteManager, narc, underground_icons_cell_NCER, FALSE, 14529);
+    SpriteResourceManager_LoadAnimation(&menu->spriteManager, narc, underground_icons_anim_NANR, FALSE, 14529);
+    SpriteResourceManager_LoadTiles(&menu->spriteManager, narc, underground_icons_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 14529);
 
     NARC_dtor(narc);
 
@@ -274,7 +274,7 @@ static void UndergroundMenu_InitStartMenuSprites(UndergroundMenu *menu, u8 *opti
         template.y += 24 * i;
         template.animIdx = optionList[i] * ICON_ANIM_COUNT;
 
-        menu->sprites[i + 1] = ov5_021D3584(&menu->unk_74, &template);
+        menu->sprites[i + 1] = SpriteResourceManager_CreateManagedSprite(&menu->spriteManager, &template);
 
         VecFx32 scale = { FX32_ONE, FX32_ONE, FX32_ONE };
         Sprite_SetAffineScaleEx(menu->sprites[i + 1]->sprite, &scale, AFFINE_OVERWRITE_MODE_NORMAL);
@@ -291,7 +291,7 @@ static void UndergroundMenu_FreeSprites(UndergroundMenu *menu)
         Sprite_DeleteAndFreeResources(menu->sprites[i]);
     }
 
-    ov5_021D375C(&menu->unk_74);
+    SpriteResourceManager_Cleanup(&menu->spriteManager);
 }
 
 static void UndergroundMenu_AnimateSprites(UndergroundMenu *menu)
@@ -664,7 +664,7 @@ static BOOL UndergroundMenu_HandleStartMenu(SysTask *sysTask, void *data)
     switch (menu->startMenuInput) {
     case MENU_NOTHING_CHOSEN:
         UndergroundMenu_AnimateSprites(menu);
-        SpriteList_Update(menu->unk_74.unk_00);
+        SpriteList_Update(menu->spriteManager.spriteList);
         return FALSE;
     case MENU_CANCELED:
         menu->state = UNDERGROUND_MENU_STATE_CLOSE;
@@ -862,7 +862,7 @@ static void UndergroundMenu_InitTrapsMenu(UndergroundMenu *menu, MoveItemCallbac
     int maxDisplay = UNDERGROUND_MENU_MAX_DISPLAY;
 
     UndergroundMenu_EraseCurrentMenu(menu);
-    UndergroundTextPrinter_ChangeMessageLoaderBank(CommManUnderground_GetItemNameTextPrinter(), TEXT_BANK_UNDERGROUND_TRAPS, MESSAGE_LOADER_BANK_HANDLE);
+    UndergroundTextPrinter_ChangeMessageLoaderBank(CommManUnderground_GetItemNameTextPrinter(), TEXT_BANK_UNDERGROUND_TRAPS, MSG_LOADER_PRELOAD_ENTIRE_BANK);
 
     menu->menuOptions = StringList_New(trapCount + 1, HEAP_ID_FIELD1);
 
@@ -1044,7 +1044,7 @@ static void UndergroundMenu_InitSpheresMenu(UndergroundMenu *menu, MoveItemCallb
     int maxDisplay = UNDERGROUND_MENU_MAX_DISPLAY;
 
     UndergroundMenu_EraseCurrentMenu(menu);
-    UndergroundTextPrinter_ChangeMessageLoaderBank(CommManUnderground_GetItemNameTextPrinter(), TEXT_BANK_UNDERGROUND_ITEMS, MESSAGE_LOADER_BANK_HANDLE);
+    UndergroundTextPrinter_ChangeMessageLoaderBank(CommManUnderground_GetItemNameTextPrinter(), TEXT_BANK_UNDERGROUND_ITEMS, MSG_LOADER_PRELOAD_ENTIRE_BANK);
 
     menu->menuOptions = StringList_New(sphereCount + 1, HEAP_ID_FIELD1);
 
@@ -1212,7 +1212,7 @@ static void UndergroundMenu_InitTreasuresMenu(UndergroundMenu *menu, MoveItemCal
     int maxDisplay = UNDERGROUND_MENU_MAX_DISPLAY;
 
     UndergroundMenu_EraseCurrentMenu(menu);
-    UndergroundTextPrinter_ChangeMessageLoaderBank(CommManUnderground_GetItemNameTextPrinter(), TEXT_BANK_UNDERGROUND_ITEMS, MESSAGE_LOADER_BANK_HANDLE);
+    UndergroundTextPrinter_ChangeMessageLoaderBank(CommManUnderground_GetItemNameTextPrinter(), TEXT_BANK_UNDERGROUND_ITEMS, MSG_LOADER_PRELOAD_ENTIRE_BANK);
 
     menu->menuOptions = StringList_New(treasureCount + 1, HEAP_ID_FIELD1);
 
@@ -1598,7 +1598,7 @@ static void UndergroundMenu_InitGoodsMenu(UndergroundMenu *menu, MoveItemCallbac
     int maxDisplay = UNDERGROUND_MENU_MAX_DISPLAY;
 
     UndergroundMenu_EraseCurrentMenu(menu);
-    UndergroundTextPrinter_ChangeMessageLoaderBank(CommManUnderground_GetItemNameTextPrinter(), TEXT_BANK_UNDERGROUND_GOODS, MESSAGE_LOADER_BANK_HANDLE);
+    UndergroundTextPrinter_ChangeMessageLoaderBank(CommManUnderground_GetItemNameTextPrinter(), TEXT_BANK_UNDERGROUND_GOODS, MSG_LOADER_PRELOAD_ENTIRE_BANK);
 
     menu->menuOptions = StringList_New(goodsCount + 1, HEAP_ID_FIELD1);
 
