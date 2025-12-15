@@ -23,6 +23,7 @@
 #include "font_special_chars.h"
 #include "game_options.h"
 #include "game_records.h"
+#include "goods.h"
 #include "graphics.h"
 #include "gx_layers.h"
 #include "heap.h"
@@ -56,7 +57,6 @@
 #include "unk_0202C9F4.h"
 #include "unk_0202D05C.h"
 #include "unk_0203D1B8.h"
-#include "unk_020573FC.h"
 #include "unk_0208C098.h"
 #include "unk_02097B18.h"
 #include "vars_flags.h"
@@ -974,7 +974,7 @@ static void Shop_ShowQtyWithinInventory(ShopMenu *shopMenu)
     } else if (shopMenu->martType == MART_TYPE_FRONTIER) {
         inventoryQty = Bag_GetItemQuantity(shopMenu->destInventory, shopMenu->itemId, HEAP_ID_FIELD2);
     } else if (shopMenu->martType == MART_TYPE_SEAL) {
-        inventoryQty = sub_0202CBC8(shopMenu->destInventory, shopMenu->itemId);
+        inventoryQty = SealCase_CountSealOccurrenceAnywhere(shopMenu->destInventory, shopMenu->itemId);
     } else {
         inventoryQty = 0;
     }
@@ -1049,7 +1049,7 @@ static u8 Shop_ShowPurchaseMessage(ShopMenu *shopMenu)
             canFitItem = TRUE;
         }
     } else {
-        canFitItem = sub_0202CB70(shopMenu->destInventory, shopMenu->itemId, shopMenu->itemAmount);
+        canFitItem = SealCase_CheckSealCount(shopMenu->destInventory, shopMenu->itemId, shopMenu->itemAmount);
     }
 
     if (canFitItem == FALSE) {
@@ -1222,7 +1222,7 @@ static u8 Shop_ConfirmItemPurchase(ShopMenu *shopMenu)
     } else if (shopMenu->martType == MART_TYPE_DECOR) {
         Underground_TryAddGoodPC(shopMenu->destInventory, shopMenu->itemId);
     } else {
-        sub_0202CAE0(shopMenu->destInventory, shopMenu->itemId, shopMenu->itemAmount);
+        GiveOrTakeSeal(shopMenu->destInventory, shopMenu->itemId, shopMenu->itemAmount);
     }
 
     Shop_TakeMoney(shopMenu, shopMenu->itemPrice * shopMenu->itemAmount);
@@ -1328,7 +1328,7 @@ static u32 Shop_GetItemPrice(ShopMenu *shopMenu, u16 itemId)
     } else if (shopMenu->martType == MART_TYPE_FRONTIER) {
         return Shop_GetItemBPPrice(shopMenu, itemId);
     } else if (shopMenu->martType == MART_TYPE_DECOR) {
-        return sub_0205745C(itemId);
+        return Good_GetMoneyPrice(itemId);
     }
 
     return sub_020981D0(itemId);
