@@ -1596,10 +1596,10 @@ Overlay overlay107
 	After overlay104
 	Object main.nef.p/src_overlay107_ov107_02241AE0.c.o
 	Object main.nef.p/src_overlay107_ov107_02245EB0.c.o
-	Object main.nef.p/src_overlay107_ov107_02249604.c.o
-	Object main.nef.p/src_overlay107_ov107_02249B1C.c.o
+	Object main.nef.p/src_overlay107_battle_castle_app_sprite_manager.c.o
+	Object main.nef.p/src_overlay107_battle_castle_app_sprite.c.o
 	Object main.nef.p/src_overlay107_ov107_02249C98.c.o
-	Object main.nef.p/src_overlay107_ov107_02249D14.c.o
+	Object main.nef.p/src_overlay107_battle_castle_app_windows.c.o
 }
 
 Overlay overlay108
@@ -1691,10 +1691,10 @@ Overlay overlay117
 	Object main.nef.p/src_overlay117_ov117_022666C0.c.o
 }
 
-Overlay overlay118
+Overlay party_menu_form_change
 {
 	After main
-	Object main.nef.p/src_overlay118_ov118_021D0D80.c.o
+	Object main.nef.p/src_applications_party_menu_form_change.c.o
 }
 
 Overlay overlay119
