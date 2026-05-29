@@ -1,12 +1,11 @@
-# Pokémon Platinum
+# Pokémon Platinum Ultra
 
-This is a WIP decompilation of Pokémon Platinum. For instructions on how to set up the repository, please read [`INSTALL.md`](INSTALL.md).
+Based on the pret decomp (https://github.com/pret/pokeplatinum)[pokeplatinum].
 
-If you are interested in contributing, please read [`CONTRIBUTING.md`](/CONTRIBUTING.md).
+Current features (as of 5/29/26):
 
-This repository builds the following ROMs:
+-**Changed Starters** Starters have been changed to Bulbasaur, Torchic and Totodile.
 
-* [**pokeplatinum.us.nds**](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=4997) (Rev 1): `sha1: 0862ec35b24de5c7e2dcb88c9eea0873110d755c`
-* [**pokeplatinum.us.nds**](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=3541) (Rev 0): `sha1: ce81046eda7d232513069519cb2085349896dec7`
+-**Rare Candy/Master Ball** Available for free in pokemarts from the beginning.
 
-For contacts and other pret projects, see [pret.github.io](https://pret.github.io/).
+More coming soon...
