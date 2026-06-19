@@ -351,7 +351,7 @@ Static main
 	Object main.nef.p/src_unk_02099604.c.o
 	Object main.nef.p/src_unk_020996D0.c.o
 	Object main.nef.p/src_move_reminder_data.c.o
-	Object main.nef.p/src_unk_020998EC.c.o
+	Object main.nef.p/src_easy_chat_word_list.c.o
 	Object main.nef.p/src_poketch_memory.c.o
 	Object main.nef.p/src_unk_02099DFC.c.o
 	Object main.nef.p/src_unk_0209A2C4.c.o
@@ -692,15 +692,15 @@ Overlay battle
 	Object main.nef.p/src_battle_battle_lib.c.o
 	Object main.nef.p/src_battle_battle_io_command.c.o
 	Object main.nef.p/src_battle_battle_display.c.o
-	Object main.nef.p/src_battle_ov16_02264798.c.o
+	Object main.nef.p/src_battle_idle_bounce_anim.c.o
 	Object main.nef.p/src_battle_battle_controller.c.o
 	Object main.nef.p/src_battle_healthbox.c.o
-	Object main.nef.p/src_battle_ov16_02268520.c.o
+	Object main.nef.p/src_battle_terrain.c.o
 	Object main.nef.p/src_battle_battle_subscreen.c.o
 	Object main.nef.p/src_battle_party_gauge.c.o
-	Object main.nef.p/src_battle_ov16_0226DB7C.c.o
-	Object main.nef.p/src_battle_ov16_0226DE44.c.o
-	Object main.nef.p/src_battle_ov16_0226E148.c.o
+	Object main.nef.p/src_battle_cursor_renderer.c.o
+	Object main.nef.p/src_battle_indicator.c.o
+	Object main.nef.p/src_battle_stop_recording_task_data.c.o
 }
 
 Overlay overlay17
