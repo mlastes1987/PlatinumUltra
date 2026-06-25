@@ -5,9 +5,9 @@
 #include "constants/battle_tower.h"
 #include "generated/battle_tower_modes.h"
 
-#include "struct_decls/struct_0202D750_decl.h"
 #include "struct_defs/battle_tower.h"
 #include "struct_defs/struct_0209BBA4.h"
+#include "struct_defs/wifi_battle_tower_data.h"
 
 #include "overlay104/defs.h"
 #include "overlay104/frontier_script_context.h"
@@ -25,10 +25,10 @@
 #include "heap.h"
 #include "item_use_pokemon.h"
 #include "party.h"
-#include "unk_0202D05C.h"
 #include "unk_02049D08.h"
 #include "unk_0204FA34.h"
 #include "unk_0209BA80.h"
+#include "wifi_battle_tower_save.h"
 
 static BOOL ov104_02239680(FrontierScriptContext *param0);
 static BOOL ov104_02239C20(FrontierScriptContext *param0);
@@ -38,13 +38,13 @@ BOOL FrontierScrCmd_AA(FrontierScriptContext *param0)
     FieldFrontierDTO *fieldData = BattleFrontier_GetFieldData(param0->scriptMan->frontier);
     UnkStruct_0209BBA4 *v0 = ov104_02239C58(fieldData->saveData);
 
-    sub_0209B980(param0->scriptMan->frontier, v0);
+    BattleFrontier_SetFacilityStruct(param0->scriptMan->frontier, v0);
     return 0;
 }
 
 BOOL FrontierScrCmd_AB(FrontierScriptContext *param0)
 {
-    UnkStruct_0209BBA4 *v0 = sub_0209B978(param0->scriptMan->frontier);
+    UnkStruct_0209BBA4 *v0 = BattleFrontier_GetFacilityStruct(param0->scriptMan->frontier);
     ov104_02239C7C(v0);
 
     return 0;
@@ -58,7 +58,7 @@ BOOL FrontierScrCmd_AC(FrontierScriptContext *param0)
     u16 v3 = FrontierScriptContext_GetVar(param0);
     u16 *v4 = FrontierScriptContext_TryGetVarPointer(param0);
 
-    v0 = sub_0209B978(param0->scriptMan->frontier);
+    v0 = BattleFrontier_GetFacilityStruct(param0->scriptMan->frontier);
     *v4 = ov104_02239C88(v0, v1, v2, v3);
 
     return 1;
@@ -76,7 +76,7 @@ BOOL FrontierScrCmd_AD(FrontierScriptContext *param0)
 
 static BOOL ov104_02239680(FrontierScriptContext *param0)
 {
-    UnkStruct_0209BBA4 *v0 = sub_0209B978(param0->scriptMan->frontier);
+    UnkStruct_0209BBA4 *v0 = BattleFrontier_GetFacilityStruct(param0->scriptMan->frontier);
 
     if (v0->unk_6F >= 2) {
         v0->unk_6F = 0;
@@ -92,7 +92,7 @@ BOOL FrontierScrCmd_AE(FrontierScriptContext *param0)
     u16 v1 = FrontierScriptContext_GetVar(param0);
     u16 *v2 = FrontierScriptContext_TryGetVarPointer(param0);
 
-    v0 = sub_0209B978(param0->scriptMan->frontier);
+    v0 = BattleFrontier_GetFacilityStruct(param0->scriptMan->frontier);
 
     if (v1 == v0->unk_6E) {
         *v2 = 1;
@@ -111,7 +111,7 @@ BOOL FrontierScrCmd_AF(FrontierScriptContext *param0)
     u16 v3 = FrontierScriptContext_GetVar(param0);
     u16 *v4 = FrontierScriptContext_TryGetVarPointer(param0);
 
-    v0 = sub_0209B978(param0->scriptMan->frontier);
+    v0 = BattleFrontier_GetFacilityStruct(param0->scriptMan->frontier);
     fieldData = BattleFrontier_GetFieldData(param0->scriptMan->frontier);
 
     v0->fieldSystem = fieldData->fieldSystem;
@@ -130,7 +130,7 @@ BOOL FrontierScrCmd_B0(FrontierScriptContext *param0)
     u16 *v3 = FrontierScriptContext_TryGetVarPointer(param0);
     u16 *v4 = FrontierScriptContext_TryGetVarPointer(param0);
 
-    v1 = sub_0209B978(param0->scriptMan->frontier);
+    v1 = BattleFrontier_GetFacilityStruct(param0->scriptMan->frontier);
 
     if (v1->partyMenu->selectedMonSlot == 7) {
         *v3 = 0xff;
@@ -160,7 +160,7 @@ BOOL FrontierScrCmd_B1(FrontierScriptContext *param0)
     UnkStruct_0209BBA4 *v0;
     u16 *v1 = FrontierScriptContext_TryGetVarPointer(param0);
 
-    v0 = sub_0209B978(param0->scriptMan->frontier);
+    v0 = BattleFrontier_GetFacilityStruct(param0->scriptMan->frontier);
     *v1 = v0->unk_59;
 
     return 0;
@@ -170,7 +170,7 @@ BOOL FrontierScrCmd_B2(FrontierScriptContext *param0)
 {
     int v0;
     u16 v1, v2;
-    UnkStruct_0202D750 *v3;
+    WifiBattleTowerRecord *record;
     UnkStruct_0209BBA4 *v4;
     FieldFrontierDTO *fieldData;
     u8 v6 = FrontierScriptContext_ReadByte(param0);
@@ -178,7 +178,7 @@ BOOL FrontierScrCmd_B2(FrontierScriptContext *param0)
     u8 v8 = FrontierScriptContext_ReadByte(param0);
     u16 *v9 = FrontierScriptContext_TryGetVarPointer(param0);
 
-    v4 = sub_0209B978(param0->scriptMan->frontier);
+    v4 = BattleFrontier_GetFacilityStruct(param0->scriptMan->frontier);
     fieldData = BattleFrontier_GetFieldData(param0->scriptMan->frontier);
 
     switch (v6) {
@@ -266,8 +266,8 @@ BOOL FrontierScrCmd_B2(FrontierScriptContext *param0)
             BattleFrontierSave_SetStatAutoHostIdx(SaveData_GetBattleFrontier(v4->saveData), v1, 0);
 
             if (v4->unk_A0 == 1) {
-                v3 = sub_0202D750(v4->saveData);
-                sub_0202D3B4(v3, 6, 2);
+                record = SaveData_GetWifiBattleTowerRecord(v4->saveData);
+                WifiBattleTowerRecord_UpdateRoomNum(record, 6, 2);
             }
 
             if (v4->unk_A0 == 4) {
@@ -307,13 +307,13 @@ BOOL FrontierScrCmd_B3(FrontierScriptContext *param0)
     UnkStruct_0209BBA4 v4;
 
     fieldData = BattleFrontier_GetFieldData(param0->scriptMan->frontier);
-    v3 = sub_0209B978(param0->scriptMan->frontier);
+    v3 = BattleFrontier_GetFacilityStruct(param0->scriptMan->frontier);
 
     v4 = *v3;
     ov104_02239C7C(v3);
 
     battleTower = BattleTower_Init(fieldData->saveData, 0, BATTLE_TOWER_MODE_6);
-    sub_0209B980(param0->scriptMan->frontier, battleTower);
+    BattleFrontier_SetFacilityStruct(param0->scriptMan->frontier, battleTower);
 
     if (battleTower->challengeMode == BATTLE_TOWER_MODE_6) {
         BattleFrontier_FlagGeonetLinkInfo(fieldData->saveData);
@@ -347,7 +347,7 @@ BOOL FrontierScrCmd_B4(FrontierScriptContext *param0)
     BattleTower *battleTower;
     u16 *v1 = FrontierScriptContext_TryGetVarPointer(param0);
 
-    battleTower = sub_0209B978(param0->scriptMan->frontier);
+    battleTower = BattleFrontier_GetFacilityStruct(param0->scriptMan->frontier);
     *v1 = sub_0209BB08(battleTower);
 
     return 1;
@@ -361,7 +361,7 @@ BOOL FrontierScrCmd_B5(FrontierScriptContext *param0)
 
 static BOOL ov104_02239C20(FrontierScriptContext *param0)
 {
-    BattleTower *battleTower = sub_0209B978(param0->scriptMan->frontier);
+    BattleTower *battleTower = BattleFrontier_GetFacilityStruct(param0->scriptMan->frontier);
 
     if (battleTower->unk_8D4 < 2) {
         return 0;
@@ -373,7 +373,7 @@ static BOOL ov104_02239C20(FrontierScriptContext *param0)
 
 BOOL FrontierScrCmd_ClearTowerStruct(FrontierScriptContext *ctx)
 {
-    BattleTower *battleTower = sub_0209B978(ctx->scriptMan->frontier);
+    BattleTower *battleTower = BattleFrontier_GetFacilityStruct(ctx->scriptMan->frontier);
     BattleTower_Free(battleTower);
     battleTower = NULL;
 

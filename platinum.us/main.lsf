@@ -58,6 +58,7 @@ Static main
 	Object main.nef.p/src_colored_arrow.c.o
 	Object main.nef.p/src_easy_chat_sentence.c.o
 	Object main.nef.p/src_easy_chat_words.c.o
+	Object main.nef.p/src_password_word_bank.c.o
 	Object main.nef.p/src_software_sprite.c.o
 	Object main.nef.p/src_unk_0201567C.c.o
 	Object main.nef.p/src_poffin_types.c.o
@@ -130,7 +131,7 @@ Static main
 	Object main.nef.p/src_play_time.c.o
 	Object main.nef.p/src_chatot_cry.c.o
 	Object main.nef.p/src_game_records.c.o
-	Object main.nef.p/src_unk_0202D05C.c.o
+	Object main.nef.p/src_wifi_battle_tower_save.c.o
 	Object main.nef.p/src_unk_0202D778.c.o
 	Object main.nef.p/src_special_encounter.c.o
 	Object main.nef.p/src_global_trade.c.o
@@ -583,7 +584,7 @@ Overlay overlay6
 	Object main.nef.p/src_overlay006_trophy_garden_daily_encounters.c.o
 	Object main.nef.p/src_overlay006_feebas_fishing.c.o
 	Object main.nef.p/src_overlay006_dual_slot_encounters.c.o
-	Object main.nef.p/src_overlay006_ov6_02247830.c.o
+	Object main.nef.p/src_overlay006_wallpaper_passwords.c.o
 	Object main.nef.p/src_overlay006_link_contest_record_display.c.o
 	Object main.nef.p/src_overlay006_healing_machine_animation_hall_of_fame.c.o
 	Object main.nef.p/src_overlay006_lake_guardian_containment_units.c.o
@@ -1544,7 +1545,7 @@ Overlay overlay104
 	Object main.nef.p/src_overlay104_frscrcmd_battle_factory.c.o
 	Object main.nef.p/src_overlay104_ov104_022339B4.c.o
 	Object main.nef.p/src_overlay104_frscrcmd_battle_hall.c.o
-	Object main.nef.p/src_overlay104_ov104_02234DB4.c.o
+	Object main.nef.p/src_overlay104_battle_hall.c.o
 	Object main.nef.p/src_overlay104_frscrcmd_battle_castle.c.o
 	Object main.nef.p/src_overlay104_ov104_022361B4.c.o
 	Object main.nef.p/src_overlay104_frscrcmd_battle_arcade.c.o
@@ -1556,7 +1557,7 @@ Overlay overlay104
 	Object main.nef.p/src_overlay104_ov104_02239C58.c.o
 	Object main.nef.p/src_overlay104_ov104_0223A0C4.c.o
 	Object main.nef.p/src_overlay104_ov104_0223A7F4.c.o
-	Object main.nef.p/src_overlay104_ov104_0223AF58.c.o
+	Object main.nef.p/src_overlay104_battle_hall_helpers.c.o
 	Object main.nef.p/src_overlay104_ov104_0223B6F4.c.o
 	Object main.nef.p/src_overlay104_ov104_0223BCBC.c.o
 	Object main.nef.p/src_overlay104_ov104_0223C164.c.o
