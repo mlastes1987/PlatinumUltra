@@ -276,7 +276,7 @@ Static main
 	Object main.nef.p/src_cutscenes_boat_cutscene_boat_cutscene.c.o
 	Object main.nef.p/src_tv_segment.c.o
 	Object main.nef.p/src_rankings_machine.c.o
-	Object main.nef.p/src_unk_02070428.c.o
+	Object main.nef.p/src_field_map_change_flags.c.o
 	Object main.nef.p/src_field_move_tasks.c.o
 	Object main.nef.p/src_unk_020711C8.c.o
 	Object main.nef.p/src_overworld_anim_manager.c.o
@@ -645,7 +645,7 @@ Overlay battle_anim
 	Object main.nef.p/src_battle_anim_script_func_mimic.c.o
 	Object main.nef.p/src_battle_anim_script_funcs_1.c.o
 	Object main.nef.p/src_battle_anim_script_funcs_2.c.o
-	Object main.nef.p/src_battle_anim_ov12_022346A4.c.o
+	Object main.nef.p/src_battle_anim_script_funcs_status.c.o
 	Object main.nef.p/src_battle_anim_script_funcs_stat_change.c.o
 	Object main.nef.p/src_battle_anim_battle_anim_util.c.o
 	Object main.nef.p/src_battle_anim_ov12_02235E94.c.o
@@ -1440,12 +1440,12 @@ Overlay overlay95
 	Object main.nef.p/src_overlay095_ov95_0224B3D8.c.o
 }
 
-Overlay overlay96
+Overlay wifi_battle_tower
 {
 	After battle_anim
-	Object main.nef.p/src_overlay096_ov96_0223B140.c.o
-	Object main.nef.p/src_overlay096_ov96_0223B6A0.c.o
-	Object main.nef.p/src_overlay096_ov96_0223BCE0.c.o
+	Object main.nef.p/src_wifi_battle_tower_http.c.o
+	Object main.nef.p/src_wifi_battle_tower_application.c.o
+	Object main.nef.p/src_wifi_battle_tower_screen.c.o
 }
 
 Overlay main_menu
