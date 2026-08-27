@@ -37,7 +37,7 @@
             [ 1, "MOVE_SCRATCH" ],
             [ 1, "MOVE_GROWL" ],
             [ 7, "MOVE_FOCUS_ENERGY" ],
-            [ 10, "MOVE_EMBER" ],
+            [ 8, "MOVE_EMBER" ],
             [ 16, "MOVE_PECK" ],
             [ 19, "MOVE_SAND_ATTACK" ],
             [ 25, "MOVE_FIRE_SPIN" ],
